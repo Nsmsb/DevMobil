@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "dev-mobil": {
+      "hosting": {
+        "app": [
+          "dev-mobil"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "dev-mobil"
+  }
+}
