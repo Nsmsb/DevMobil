@@ -27,7 +27,7 @@ export class PlaylistDetailComponent implements OnInit {
   }
 
   delete(todo: Todo) {
-    this.playlistService.removeTodo(+this.route.snapshot.params.id, todo);
+    this.playlistService.removeTodo(this.route.snapshot.params.id, todo);
   }
 
   async openModal() {
@@ -39,7 +39,6 @@ export class PlaylistDetailComponent implements OnInit {
     });
     // const newTodo = (await modal.onDidDismiss()).data;
     await modal.present();
-    this.modalController.
     // console.log(newTodo);
     // this.playlist = this.playlistService.getOne(+this.route.snapshot.params.id);
   }
