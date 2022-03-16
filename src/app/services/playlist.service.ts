@@ -6,8 +6,6 @@ import { switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { UserService } from './auth/user.service';
 
-
-
 @Injectable({
   providedIn: 'root'
 })

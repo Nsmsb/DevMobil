@@ -10,7 +10,7 @@ import { User } from '../../models/user';
 export class UserService {
 
   private userCredentails: firebase.auth.UserCredential;
-  private connectedUser: User;
+  private connectedUser: User = null;
 
   constructor(private auth: AngularFireAuth) {}
 
@@ -31,8 +31,12 @@ export class UserService {
   }
 
   async login() {
-    this.userCredentails = await this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-    this.userCredentails.user.sendEmailVerification();
+    const connectedUserCredentails = await this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    if (!connectedUserCredentails.user.emailVerified) {
+      // TODO: use emailVerified as part of a guard
+      this.auth.signOut();
+      return
+    }
     this.connectedUser = {
       id: this.userCredentails.user.uid,
       email: this.userCredentails.user.email,
@@ -42,8 +46,6 @@ export class UserService {
 
   logout() {
     this.auth.signOut();
-    this.connectedUser = undefined;
+    this.connectedUser = null;
   }
-
-  
 }
