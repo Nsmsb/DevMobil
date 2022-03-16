@@ -41,11 +41,11 @@ export class PlaylistService {
   }
 
   addPlaylist(playlist: Playlist) {
-    // this.playlists = this.playlists.concat(playlist);
+    this.playlistCollection.add(playlist);
   }
 
   removePlaylist(playlist: Playlist) {
-    // this.playlists = this.playlists.filter(p => p.id !== playlist.id);
+    this.playlistCollection.doc(playlist.id).delete();
   }
 
   async addTodo(playlistId: string, todo: Todo) {

@@ -34,7 +34,7 @@ export class CreateTodoComponent implements OnInit {
     };
 
     this.playlistService.addTodo(this.playlistId, newTodo);
-    // this.modalController.dismiss();
+    this.modalController.dismiss();
   }
 
 }
