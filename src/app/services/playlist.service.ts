@@ -16,7 +16,6 @@ export class PlaylistService {
   constructor(private afs: AngularFirestore, private userService: UserService) {
     this.playlistCollection = this.afs.collection<Playlist>('playlists');
     this.playlists = this.playlistCollection.valueChanges({idField: 'id'});
-    userService.login();
   }
 
   getAll() {
