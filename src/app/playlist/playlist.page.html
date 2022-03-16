@@ -15,7 +15,7 @@
 
   <div id="container">
     <ion-list>
-      <ion-item-sliding *ngFor="let playlist of playlists$ | async;">
+      <ion-item-sliding *ngFor="let playlist of (playlists$ | async);">
         <ion-item [routerLink]="[playlist?.id]" routerLinkActive="true">
           <ion-label>{{ playlist.name }}</ion-label>
         </ion-item>

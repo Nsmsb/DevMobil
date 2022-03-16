@@ -17,13 +17,11 @@ export class PlaylistPage implements OnInit {
   playlists$: Observable<Playlist[]> = EMPTY;
 
   constructor(private playlistService: PlaylistService,
-    private modalController: ModalController,
-    private afs: AngularFirestore) {
-    const playlistsCollection = this.afs.collection<Playlist>('playlists');
-    this.playlists$ = playlistsCollection.valueChanges();
+    private modalController: ModalController) {
   }
 
   ngOnInit(): void {
+    this.playlists$ = this.playlistService.getAll();
   }
 
   delete(playlist: Playlist) {

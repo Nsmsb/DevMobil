@@ -1,13 +1,10 @@
+import { Observable, of } from "rxjs";
 import { Todo } from "./todo";
 
-export class Playlist {
-    id: number;
+export interface Playlist {
+    id: string;
     name: string;
-    todos: Todo[];
+    todos$: Observable<Todo[]>;
 
-    constructor(name: string, id?: number, todos?: Todo[]) {
-        this.id = id ?? Math.floor(Math.random() * 100) + Date.now();
-        this.name = name;
-        this.todos = todos ?? [];
-    }
 }
+

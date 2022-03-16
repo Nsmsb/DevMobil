@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { Observable } from 'rxjs';
 import { CreateTodoComponent } from 'src/app/modals/create-todo/create-todo.component';
 import { Playlist } from 'src/app/models/playlist';
 import { Todo } from 'src/app/models/todo';
@@ -13,30 +14,34 @@ import { PlaylistService } from 'src/app/services/playlist.service';
 })
 export class PlaylistDetailComponent implements OnInit {
 
-  public playlist: Playlist;
+  public playlist$: Observable<Playlist>;
 
   constructor(private route: ActivatedRoute,
     private playlistService: PlaylistService,
     private modalController: ModalController) { }
 
   ngOnInit(): void {
-    this.playlist = this.playlistService.getOne(+this.route.snapshot.params.id);
+    this.playlist$ = this.playlistService.getOne(this.route.snapshot.params.id);
+
+    this.playlist$.subscribe(console.log);
   }
 
   delete(todo: Todo) {
-    this.playlistService.removeTodo(this.playlist.id, todo);
-    this.playlist = this.playlistService.getOne(+this.route.snapshot.params.id);
+    this.playlistService.removeTodo(+this.route.snapshot.params.id, todo);
   }
 
   async openModal() {
     const modal = await this.modalController.create({
       component: CreateTodoComponent,
       componentProps: {
-        playlistId: this.playlist.id
+        playlistId: this.route.snapshot.params.id
       }
     });
+    // const newTodo = (await modal.onDidDismiss()).data;
     await modal.present();
-    this.playlist = this.playlistService.getOne(+this.route.snapshot.params.id);
+    this.modalController.
+    // console.log(newTodo);
+    // this.playlist = this.playlistService.getOne(+this.route.snapshot.params.id);
   }
 
 }

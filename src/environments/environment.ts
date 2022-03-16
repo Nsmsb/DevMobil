@@ -4,14 +4,12 @@
 
 export const environment = {
   firebase: {
-    projectId: 'dev-mobil',
-    appId: '1:113850464355:web:78205896001e73e271e056',
-    storageBucket: 'dev-mobil.appspot.com',
-    locationId: 'europe-west',
-    apiKey: 'AIzaSyDx3a2nZpj9O7V597avZJqqQeid6FOFZV8',
-    authDomain: 'dev-mobil.firebaseapp.com',
-    messagingSenderId: '113850464355',
-    measurementId: 'G-XGKJD3RR2Y',
+    apiKey: "AIzaSyBwNquyus18e0D7B_UL3YOTqLXBxHwRvg4",
+    authDomain: "todo-f2f0e.firebaseapp.com",
+    projectId: "todo-f2f0e",
+    storageBucket: "todo-f2f0e.appspot.com",
+    messagingSenderId: "987807481634",
+    appId: "1:987807481634:web:5a831cbf2adf0084786f7b"
   },
   production: false
 };

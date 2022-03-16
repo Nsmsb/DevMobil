@@ -11,7 +11,7 @@ import { PlaylistService } from 'src/app/services/playlist.service';
 })
 export class CreateTodoComponent implements OnInit {
 
-  @Input() playlistId: number;
+  @Input() playlistId: string;
 
   todoForm: FormGroup;
 
@@ -27,8 +27,14 @@ export class CreateTodoComponent implements OnInit {
   }
 
   addTodo() {
-    this.playlistService.addTodo(this.playlistId, new Todo(this.todoForm.get('name').value, this.todoForm.get('description').value));
-    this.modalController.dismiss();
+    const newTodo: Todo = {
+      ...this.todoForm.value,
+      completed: false,
+      playlistId: this.playlistId
+    };
+
+    this.playlistService.addTodo(this.playlistId, newTodo);
+    // this.modalController.dismiss();
   }
 
 }
