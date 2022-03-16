@@ -15,6 +15,7 @@ import { PlaylistService } from 'src/app/services/playlist.service';
 export class PlaylistDetailComponent implements OnInit {
 
   public playlist$: Observable<Playlist>;
+  public currentStateMessage: string = 'Loadign playlist..';
 
   constructor(private route: ActivatedRoute,
     private playlistService: PlaylistService,
@@ -22,8 +23,11 @@ export class PlaylistDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.playlist$ = this.playlistService.getOne(this.route.snapshot.params.id);
-
-    this.playlist$.subscribe(console.log);
+    this.playlist$.subscribe((playlist) => {        
+      if (!playlist) {
+        this.currentStateMessage = 'Sorry, we couldn\!t find this playlist !';
+      }
+    });
   }
 
   delete(todo: Todo) {
@@ -37,10 +41,7 @@ export class PlaylistDetailComponent implements OnInit {
         playlistId: this.route.snapshot.params.id
       }
     });
-    // const newTodo = (await modal.onDidDismiss()).data;
     await modal.present();
-    // console.log(newTodo);
-    // this.playlist = this.playlistService.getOne(+this.route.snapshot.params.id);
   }
 
 }

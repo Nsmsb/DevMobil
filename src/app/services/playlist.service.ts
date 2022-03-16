@@ -2,9 +2,8 @@ import { Injectable, OnInit } from '@angular/core';
 import { Playlist } from '../models/playlist';
 import { Todo } from '../models/todo';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { FieldValue } from '@angular/fire/firestore/';
-import { map, switchMap } from 'rxjs/operators';
-import { Observable, of, zip } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 
 
@@ -28,10 +27,12 @@ export class PlaylistService {
     return this.playlists.pipe(
       switchMap(playlists => {
         const playlist = playlists.find(playlist => playlist.id === id);
-        
+        if (playlist === undefined) {
+          return of(null);
+        }
         return of({
           ...playlist,
-          todos$: this.getTodos(playlist.id)
+          todos$: this.getTodos(playlist?.id)
         });
       }));
   }  

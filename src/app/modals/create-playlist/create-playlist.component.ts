@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-import { Playlist } from 'src/app/models/playlist';
 import { PlaylistService } from 'src/app/services/playlist.service';
 
 @Component({
