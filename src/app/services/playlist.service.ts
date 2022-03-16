@@ -1,9 +1,10 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Playlist } from '../models/playlist';
 import { Todo } from '../models/todo';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { UserService } from './auth/user.service';
 
 
 
@@ -14,9 +15,10 @@ export class PlaylistService {
   playlists: Observable<Playlist[]> = of([]);
   playlistCollection: AngularFirestoreCollection<Playlist>;
 
-  constructor(private afs: AngularFirestore) {
+  constructor(private afs: AngularFirestore, private userService: UserService) {
     this.playlistCollection = this.afs.collection<Playlist>('playlists');
     this.playlists = this.playlistCollection.valueChanges({idField: 'id'});
+    userService.login();
   }
 
   getAll() {
