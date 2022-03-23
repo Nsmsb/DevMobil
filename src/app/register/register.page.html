@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<form [formGroup]="registerForm" (ngSubmit)="inscription()">
+  <ion-item>
+    <ion-label position="stacked">Mail</ion-label>
+    <ion-input formControlName="mail"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">mot de passe</ion-label>
+    <ion-input formControlName="mdp"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">confirmation mot de passe</ion-label>
+    <ion-input formControlName="mdp2"></ion-input>
+  </ion-item>
+
+  <ion-button [disabled]="registerForm.invalid" expand="block" type="submit">Validate</ion-button>
+</form>

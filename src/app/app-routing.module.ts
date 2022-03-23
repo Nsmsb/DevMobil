@@ -7,10 +7,19 @@ const routes: Routes = [
     loadChildren: () => import('./playlist/playlist.module').then(m => m.PlaylistPageModule)
   },
   {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
     path: '',
-    redirectTo: 'playlist',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
+  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
+  
 ];
 
 @NgModule({
