@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { CreateTodoComponent } from 'src/app/modals/create-todo/create-todo.component';
 import { Playlist } from 'src/app/models/playlist';
 import { Todo } from 'src/app/models/todo';
-import { PlaylistService } from 'src/app/services/playlist.service';
+import { PlaylistService } from 'src/app/services/playlist/playlist.service';
 
 @Component({
   selector: 'app-playlist-detail',

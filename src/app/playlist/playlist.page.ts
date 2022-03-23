@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CreatePlaylistComponent } from '../modals/create-playlist/create-playlist.component';
 import { Playlist } from '../models/playlist';
-import { PlaylistService } from '../services/playlist.service';
+import { PlaylistService } from '../services/playlist/playlist.service';
 import { EMPTY, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-playlist',
