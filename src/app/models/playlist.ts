@@ -5,6 +5,7 @@ export interface Playlist {
     id: string;
     name: string;
     todos$: Observable<Todo[]>;
+    roles?: {[uid: string]: number};
 
 }
 
