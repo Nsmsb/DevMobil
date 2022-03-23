@@ -9,13 +9,34 @@ import { User } from '../../models/user';
 })
 export class UserService {
 
-  private userCredentails: firebase.auth.UserCredential;
-  private connectedUser: User = null;
+  private connectedUser: User;
 
-  constructor(private auth: AngularFireAuth) {}
+  constructor(private auth: AngularFireAuth) {
+    this.connectedUser = JSON.parse(localStorage.getItem('user'));
+    auth.onAuthStateChanged((user) => {      
+      if (!user) {
+        localStorage.removeItem('user');
+        return
+      }
+      
+      this.connectedUser = {
+        id: user.uid,
+        email: user.email,
+        name: user.displayName
+      }
+      localStorage.setItem('user', JSON.stringify(this.connectedUser));
+    })
+  }
 
   get user() {
     return this.connectedUser;
+  }
+
+  isLogged(): boolean {    
+    if (!this.connectedUser) {
+      return false
+    }
+    return true;
   }
 
   async signUp() {
@@ -26,26 +47,21 @@ export class UserService {
     this.auth.signOut();
   }
 
-  removeUser() {
-    this.userCredentails.user.delete();
+  async removeUser() {
+    // TODO
   }
 
-  async login() {
+  async login(): Promise<void> {
     const connectedUserCredentails = await this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    
     if (!connectedUserCredentails.user.emailVerified) {
       // TODO: use emailVerified as part of a guard
       this.auth.signOut();
       return
     }
-    this.connectedUser = {
-      id: this.userCredentails.user.uid,
-      email: this.userCredentails.user.email,
-      name: this.userCredentails.user.displayName
-    };
   }
 
-  logout() {
-    this.auth.signOut();
-    this.connectedUser = null;
+  async logout(): Promise<void> {
+    await this.auth.signOut();
   }
 }
