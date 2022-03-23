@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Playlist } from '../models/playlist';
-import { Todo } from '../models/todo';
+import { Playlist } from '../../models/playlist';
+import { Todo } from '../../models/todo';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { UserService } from './auth/user.service';
+import { UserService } from '../auth/user.service';
 
 @Injectable({
   providedIn: 'root'
