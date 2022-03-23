@@ -33,6 +33,13 @@
     <ng-template #loading>
       <h3>Loading playlists ...</h3>
     </ng-template>
-    <ion-button expand="block" (click)="openModal()">Add Playlist</ion-button>
   </div>
 </ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <ion-row class="ion-justify-content-center">
+      <ion-fab-button size="large" (click)="openModal()">+</ion-fab-button>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>
