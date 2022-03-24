@@ -25,6 +25,10 @@ ion-item {
     background-color: #74b9ff;
 }
 
+.strikethrough {
+  text-decoration: line-through;
+}
+
 ion-checkbox {
     margin: 15px 0px;
     --size: 30px;

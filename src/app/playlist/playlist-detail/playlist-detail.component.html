@@ -18,8 +18,8 @@
       <ion-item-sliding *ngFor="let todo of todos">
         <ion-card>
           <ion-item lines="none">
-            <ion-label>{{ todo.name | titlecase }}</ion-label>
-            <ion-checkbox mode="ios" slot="end" ></ion-checkbox>
+            <ion-label [ngClass]="{'strikethrough': todo.completed}">{{ todo.name | titlecase }}</ion-label>
+            <ion-checkbox mode="ios" slot="end" checked="{{todo.completed}}" ></ion-checkbox>
           </ion-item>
           <ion-item-options side="end">
             <ion-item-option class="edite-option" (click)="delete(todo)">
