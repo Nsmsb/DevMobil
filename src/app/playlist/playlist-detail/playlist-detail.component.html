@@ -1,5 +1,10 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
+    <ion-buttons slot="primary">
+      <ion-button class="back-btn" [routerLink]="['/playlist']">
+        <ion-icon slot="icon-only" name="reorder-three-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>
       {{(playlist$ | async)?.name | titlecase}}
     </ion-title>
@@ -14,7 +19,7 @@
         <ion-card>
           <ion-item lines="none">
             <ion-label>{{ todo.name | titlecase }}</ion-label>
-            <ion-checkbox mode="ios" slot="end"></ion-checkbox>
+            <ion-checkbox mode="ios" slot="end" ></ion-checkbox>
           </ion-item>
           <ion-item-options side="end">
             <ion-item-option class="edite-option" (click)="delete(todo)">

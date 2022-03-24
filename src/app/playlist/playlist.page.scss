@@ -37,3 +37,53 @@ ion-footer > ion-toolbar {
 ion-fab-button {
   --box-shadow: None;
  }
+
+ ion-content, ion-list {
+  --background: #f8f8f8;
+  background: #f8f8f8;
+
+}
+
+ion-item {
+  --color: #636e72;
+  font-weight: 500;
+  font-size: large;
+}
+
+
+ion-header > ion-toolbar {
+  height: 100px ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --background: linear-gradient(to bottom,  rgb(255, 255, 255) 70%, rgba(211, 211, 211, 0) 100%);
+  --box-shadow: None;
+  direction: rtl;
+}
+
+ion-footer > ion-toolbar {
+height: 130px ;
+display: flex;
+align-items: center;
+justify-content: center;
+--background: linear-gradient(to top,  rgb(255, 255, 255) 35%, rgba(211, 211, 211, 0) 100%);
+--box-shadow: None;
+}
+
+ion-fab-button {
+  --background: #74b9ff;
+  font-size: 3em;
+--box-shadow: 0 1px 1px rgba(0,0,0,0.08), 
+0 2px 2px rgba(0,0,0,0.08), 
+0 4px 4px rgba(0,0,0,0.08),
+0 8px 8px rgba(0,0,0,0.08),
+0 12px 12px rgba(0,0,0,0.11),
+}
+
+ion-card {
+  margin: 10px;
+  border-radius: 30px !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05), 
+              0 2px 4px rgba(0,0,0,0.05), 
+              0 4px 8px rgba(0,0,0,0.05);
+}

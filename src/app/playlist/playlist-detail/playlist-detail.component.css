@@ -10,6 +10,13 @@ ion-item {
     font-size: large;
 }
 
+.back-btn {
+  --color: #74b9ff;
+}
+
+.back-btn > ion-icon {
+  font-size: 50px;
+}
 .delete-option {
     background-color: #ff7675;
 }
@@ -39,6 +46,7 @@ ion-header > ion-toolbar {
     justify-content: center;
     --background: linear-gradient(to bottom,  rgb(255, 255, 255) 70%, rgba(211, 211, 211, 0) 100%);
     --box-shadow: None;
+    direction: rtl;
   }
 
 ion-footer > ion-toolbar {
