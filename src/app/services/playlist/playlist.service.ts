@@ -65,6 +65,15 @@ export class PlaylistService {
     .then();
   }
 
+  updateTodo(playlistId: string, todo: Todo): Promise<void> {
+    // deleting id field
+    const newTodo = {...todo};
+    delete newTodo['id'];
+    // updating component
+    const todosCollection: AngularFirestoreCollection<Todo> = this.playlistCollection.doc(playlistId).collection('todos');
+    return todosCollection.doc(todo.id).update(newTodo);
+  }
+
   removeTodo(playlistId: string, todo: Todo): Promise<void> {
     const todosCollection: AngularFirestoreCollection<Todo> = this.playlistCollection.doc(playlistId).collection('todos');
     return todosCollection.doc(todo.id).delete();
