@@ -36,6 +36,7 @@ export class CreateTodoComponent implements OnInit {
   saveItem() {
     const newTodo: Todo = {
       completed: false,
+      priority: 0,
       playlistId: this.playlistId,
       ...this.todo,
       ...this.todoForm.value,

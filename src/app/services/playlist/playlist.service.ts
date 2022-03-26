@@ -65,7 +65,7 @@ export class PlaylistService {
     .then();
   }
 
-  updateTodo(playlistId: string, todo: Todo): Promise<void> {
+  updateTodo(playlistId: string, todo: Partial<Todo>): Promise<void> {
     // deleting id field
     const newTodo = {...todo};
     delete newTodo['id'];

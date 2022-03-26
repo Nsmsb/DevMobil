@@ -30,8 +30,25 @@ export class PlaylistDetailComponent implements OnInit {
     });
   }
 
+  /**
+   * trackBy function to track rendered elements, and prevent angular from rendering all elements on change.
+   * @param index item index
+   * @param item item
+   * @returns 
+   */
+  trackFunction(index: number, item: Todo):string {
+    return item.id
+  }
+
   delete(todo: Todo) {
     this.playlistService.removeTodo(this.route.snapshot.params.id, todo);
+  }
+
+  update(todo: Todo): void {
+    // immediately update todo
+    todo.completed = !todo.completed;
+    // send update to backend
+    this.playlistService.updateTodo(this.route.snapshot.params.id, {id: todo.id, completed: todo.completed});
   }
 
   async openModal(todo: Todo = null) {    
