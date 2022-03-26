@@ -6,8 +6,8 @@ import { PlaylistService } from 'src/app/services/playlist/playlist.service';
 
 @Component({
   selector: 'app-create-todo',
-  templateUrl: './create-todo.component.html',
-  styleUrls: ['./create-todo.component.css']
+  templateUrl: './todo-form.component.html',
+  styleUrls: ['./todo-form.component.css']
 })
 export class CreateTodoComponent implements OnInit {
 

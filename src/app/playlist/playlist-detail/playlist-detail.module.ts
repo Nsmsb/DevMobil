@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PlaylistDetailComponent } from './playlist-detail.component';
 import { PlaylistDetailRoutingModule } from './playlist-detail-routing.module';
 import { IonicModule } from '@ionic/angular';
-import { CreateTodoComponent } from 'src/app/modals/create-todo/create-todo.component';
+import { CreateTodoComponent } from 'src/app/modals/todo-form/todo-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
