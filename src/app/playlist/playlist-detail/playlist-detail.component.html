@@ -16,7 +16,7 @@
   <div id="container">
     <ion-list *ngIf="playlist.todos$ | async as todos; else notYetCreated">
       <ion-item-sliding *ngFor="let todo of todos; trackBy:trackFunction">
-            <ion-item lines="none" (click)="update(todo)">
+            <ion-item lines="none" (click)="changeCompleted(todo)">
               <ion-label>
                 <ion-grid>
                     <ion-row>
@@ -40,7 +40,7 @@
               <ion-checkbox mode="ios" slot="end" checked="{{todo.completed}}" ></ion-checkbox>
             </ion-item>
             <ion-item-options side="end">
-              <ion-item-option class="edite-option" (click)="openModal(todo)">
+              <ion-item-option class="edite-option" (click)="update(todo)">
                 <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
                 <ion-ripple-effect type="unbounded"></ion-ripple-effect>
               </ion-item-option>
@@ -76,7 +76,7 @@
 <ion-footer class="ion-no-border">
   <ion-toolbar>
     <ion-row class="ion-justify-content-center">
-      <ion-fab-button mode="ios" size="large" (click)="openModal()">+</ion-fab-button>
+      <ion-fab-button mode="ios" size="large" (click)="creat()">+</ion-fab-button>
     </ion-row>
   </ion-toolbar>
 </ion-footer>

@@ -17,8 +17,7 @@ export class CreateTodoComponent implements OnInit {
 
   todoForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private modalController: ModalController,
-    private playlistService: PlaylistService) {
+  constructor(private fb: FormBuilder, private modalController: ModalController) {
     this.todoForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', Validators.maxLength(255)],
@@ -45,11 +44,8 @@ export class CreateTodoComponent implements OnInit {
       ...this.todoForm.value,
     };
 
-    if (this.todo)
-      this.playlistService.updateTodo(this.playlistId, newTodo);
-    else
-      this.playlistService.addTodo(this.playlistId, newTodo);
-    this.modalController.dismiss();
+    // return new data
+    this.modalController.dismiss(newTodo);
   }
 
 }

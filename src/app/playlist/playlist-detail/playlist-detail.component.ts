@@ -44,22 +44,36 @@ export class PlaylistDetailComponent implements OnInit {
     this.playlistService.removeTodo(this.route.snapshot.params.id, todo);
   }
 
-  update(todo: Todo): void {
+  async update(todo: Todo): Promise<void> {
+    const newTodo = await this.openModal(todo);
+    this.playlistService.updateTodo(this.route.snapshot.params.id, newTodo);
+  }
+
+  async changeCompleted(todo: Todo): Promise<void> {
     // immediately update todo
     todo.completed = !todo.completed;
     // send update to backend
     this.playlistService.updateTodo(this.route.snapshot.params.id, {id: todo.id, completed: todo.completed});
   }
 
-  async openModal(todo: Todo = null) {    
+  async creat() {
+    const newTodo = await this.openModal();
+    this.playlistService.addTodo(this.route.snapshot.params.id, newTodo as Todo);
+  }
+
+  private async openModal(todo: Todo = null): Promise<Partial<Todo>> {    
     const modal = await this.modalController.create({
       component: CreateTodoComponent,
+      swipeToClose: true, // swipe to close modal
       componentProps: {
         playlistId: this.route.snapshot.params.id,
         todo: todo 
       }
     });
+
+    
     await modal.present();
+    return (await (modal.onDidDismiss()))?.data;
   }
 
 }
