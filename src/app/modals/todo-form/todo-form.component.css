@@ -1,0 +1,39 @@
+
+.low {
+    --color: #74b9ff;
+    --color-checked: #74b9ff;
+    background: #74b9ff;
+    border-radius: 25px;
+}
+
+.med {
+    --color: #ffeaa7;
+    --color-checked: #ffeaa7;
+    background: #ffeaa7;
+    border-radius: 25px;
+}
+
+.high {
+    --color: #fab1a0;
+    --color-checked: #fab1a0;
+    background: #fab1a0;
+    border-radius: 25px;
+}
+
+.radio-checked {
+    border: 2px solid #ffffff;
+    /* zoom: 1.05; */
+}
+
+#low-radio > .radio-checked {
+    box-shadow: 0 0 0 1px #74b9ff;
+}
+
+#med-radio > .radio-checked {
+    box-shadow: 0 0 0 1px #ffeaa7;
+}
+
+#high-radio > .radio-checked {
+    box-shadow: 0 0 0 1px#fab1a0;
+}
+

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { Priority } from 'src/app/models/priority';
 import { Todo } from 'src/app/models/todo';
 import { PlaylistService } from 'src/app/services/playlist/playlist.service';
 
@@ -20,7 +21,8 @@ export class CreateTodoComponent implements OnInit {
     private playlistService: PlaylistService) {
     this.todoForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
-      description: ['', Validators.maxLength(255)]
+      description: ['', Validators.maxLength(255)],
+      priority: [Priority.LOW, Validators.required],
     });
   }
 
@@ -28,15 +30,16 @@ export class CreateTodoComponent implements OnInit {
     if (this.todo) {
       this.todoForm.setValue({
         name: this.todo.name,
-        description: this.todo.description
+        description: this.todo.description,
+        priority: this.todo.priority,
       });
     }
   }
 
-  saveItem() {
+  saveItem(): void {
     const newTodo: Todo = {
       completed: false,
-      priority: 0,
+      priority: Priority.LOW,
       playlistId: this.playlistId,
       ...this.todo,
       ...this.todoForm.value,

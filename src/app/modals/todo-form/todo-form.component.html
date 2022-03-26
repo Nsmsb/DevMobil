@@ -1,13 +1,35 @@
-<form [formGroup]="todoForm" (ngSubmit)="saveItem()">
-    <ion-item>
+<ion-content>
+    <form [formGroup]="todoForm">
+        <ion-item>
         <ion-label position="stacked">Name</ion-label>
         <ion-input formControlName="name"></ion-input>
     </ion-item>
-
+    
     <ion-item>
         <ion-label position="stacked">Description</ion-label>
         <ion-input formControlName="description"></ion-input>
     </ion-item>
 
-    <ion-button [disabled]="todoForm.invalid" expand="block" type="submit">Validate</ion-button>
+    <ion-item>
+        <ion-label position="stacked">Priority</ion-label>
+        <ion-radio-group radio-group formControlName="priority">
+            <ion-grid>
+            <ion-row>
+                <ion-col id="low-radio" class="ion-text-center" size="4">
+                    <ion-radio value="low" class="low"></ion-radio>
+                </ion-col>
+                <ion-col id="med-radio" class="ion-text-center" size="4">
+                    <ion-radio value="med" class="med"></ion-radio>
+                </ion-col>
+                <ion-col id="high-radio" class="ion-text-center" size="4">
+                        <ion-radio value="high" class="high"></ion-radio>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-radio-group>
+</ion-item>
 </form>
+</ion-content>
+<ion-footer>
+    <ion-button [disabled]="todoForm.invalid" expand="block" (click)="saveItem()">Validate</ion-button>
+</ion-footer>
