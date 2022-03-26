@@ -8,6 +8,7 @@ ion-item {
     --color: #636e72;
     font-weight: 500;
     font-size: large;
+    --ripple-color: transparent;
 }
 
 .back-btn {
@@ -100,6 +101,6 @@ ion-fab-button {
  }
 
  ion-card-content {
-   padding-left: 30px;
+   padding-left: 35px;
    padding-bottom: 15px;
  }

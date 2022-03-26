@@ -12,6 +12,7 @@ import { PlaylistService } from 'src/app/services/playlist/playlist.service';
 export class CreateTodoComponent implements OnInit {
 
   @Input() playlistId: string;
+  @Input() todo: Todo;
 
   todoForm: FormGroup;
 
@@ -24,16 +25,26 @@ export class CreateTodoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.todo) {
+      this.todoForm.setValue({
+        name: this.todo.name,
+        description: this.todo.description
+      });
+    }
   }
 
-  addTodo() {
+  saveItem() {
     const newTodo: Todo = {
-      ...this.todoForm.value,
       completed: false,
-      playlistId: this.playlistId
+      playlistId: this.playlistId,
+      ...this.todo,
+      ...this.todoForm.value,
     };
 
-    this.playlistService.addTodo(this.playlistId, newTodo);
+    if (this.todo)
+      this.playlistService.updateTodo(this.playlistId, newTodo);
+    else
+      this.playlistService.addTodo(this.playlistId, newTodo);
     this.modalController.dismiss();
   }
 

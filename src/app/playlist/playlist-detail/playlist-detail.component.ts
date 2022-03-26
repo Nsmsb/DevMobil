@@ -34,11 +34,12 @@ export class PlaylistDetailComponent implements OnInit {
     this.playlistService.removeTodo(this.route.snapshot.params.id, todo);
   }
 
-  async openModal() {
+  async openModal(todo: Todo = null) {    
     const modal = await this.modalController.create({
       component: CreateTodoComponent,
       componentProps: {
-        playlistId: this.route.snapshot.params.id
+        playlistId: this.route.snapshot.params.id,
+        todo: todo 
       }
     });
     await modal.present();

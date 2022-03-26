@@ -23,7 +23,7 @@
               <ion-checkbox mode="ios" slot="end" checked="{{todo.completed}}" ></ion-checkbox>
             </ion-item>
             <ion-item-options side="end">
-              <ion-item-option class="edite-option" (click)="delete(todo)">
+              <ion-item-option class="edite-option" (click)="openModal(todo)">
                 <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
               </ion-item-option>
               <ion-item-option class="delete-option" (click)="delete(todo)">
