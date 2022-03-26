@@ -1,7 +1,9 @@
+import { Priority } from "./priority";
+
 export interface Todo {
     id: string;
     name: string;
-    priority: number;
+    priority: Priority;
     description: string;
     completed: boolean;
     playlistId: string;
