@@ -19,7 +19,8 @@ export class PlaylistDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private playlistService: PlaylistService,
-    private modalController: ModalController) { }
+    private modalController: ModalController,
+    ) { }
 
   ngOnInit(): void {
     this.playlist$ = this.playlistService.getOne(this.route.snapshot.params.id);
@@ -46,7 +47,8 @@ export class PlaylistDetailComponent implements OnInit {
 
   async update(todo: Todo): Promise<void> {
     const newTodo = await this.openModal(todo);
-    this.playlistService.updateTodo(this.route.snapshot.params.id, newTodo);
+    if (newTodo)
+      this.playlistService.updateTodo(this.route.snapshot.params.id, newTodo);
   }
 
   async changeCompleted(todo: Todo): Promise<void> {
@@ -58,13 +60,18 @@ export class PlaylistDetailComponent implements OnInit {
 
   async creat() {
     const newTodo = await this.openModal();
-    this.playlistService.addTodo(this.route.snapshot.params.id, newTodo as Todo);
+    if (newTodo)
+      this.playlistService.addTodo(this.route.snapshot.params.id, newTodo as Todo);
   }
 
   private async openModal(todo: Todo = null): Promise<Partial<Todo>> {    
     const modal = await this.modalController.create({
       component: CreateTodoComponent,
+      cssClass: 'modal',
       swipeToClose: true, // swipe to close modal
+      initialBreakpoint: 0.7,
+      breakpoints: [0, 0.7],
+
       componentProps: {
         playlistId: this.route.snapshot.params.id,
         todo: todo 
