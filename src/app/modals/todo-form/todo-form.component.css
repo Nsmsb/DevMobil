@@ -17,9 +17,9 @@ ion-radio {
 }
 
 .high {
-    --color: #fab1a0;
-    --color-checked: #fab1a0;
-    background: #fab1a0;
+    --color: #ff7675;
+    --color-checked: #ff7675;
+    background: #ff7675;
     border-radius: 25px;
 }
 
@@ -58,7 +58,8 @@ ion-input, ion-textarea {
     padding: 3px 10px !important;
     margin-top: 20px;
     border: 3px solid #f0f0f0;
-    --placeholder-color: #74b9ff;
+    --color: #636e72;
+    --placeholder-color: #bfc7ca;
     margin-left: auto;
     margin-right: auto;
 }
@@ -68,10 +69,6 @@ ion-textarea {
 
 ion-input.has-focus {
     border: 3px solid #74b9ff;
-    --color: #636e72;
-}
-.input:focus {
-    border: 3px solid #74b9ff !important;
 }
 
 ion-label {
