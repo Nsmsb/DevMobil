@@ -7,6 +7,7 @@ import { PlaylistPage } from './playlist.page';
 import { PlaylistPageRoutingModule } from './playlist-routing.module';
 import { CreatePlaylistComponent } from '../modals/create-playlist/create-playlist.component';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { PlaylistCardComponent } from './playlist-card/playlist-card.component';
 
 
 @NgModule({
@@ -17,6 +18,6 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
     IonicModule,
     PlaylistPageRoutingModule
   ],
-  declarations: [PlaylistPage, CreatePlaylistComponent]
+  declarations: [PlaylistPage, CreatePlaylistComponent, PlaylistCardComponent]
 })
 export class PlaylistPageModule { }
