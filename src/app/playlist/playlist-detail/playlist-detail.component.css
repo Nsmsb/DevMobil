@@ -1,9 +1,4 @@
-ion-content, ion-list {
-    --background: #f8f8f8;
-    background: #f8f8f8;
-
-  }
-  
+ 
 ion-item {
     --color: #636e72;
     font-weight: 500;
@@ -59,7 +54,7 @@ ion-header > ion-toolbar {
     display: flex;
     align-items: center;
     justify-content: center;
-    --background: linear-gradient(to bottom,  rgb(255, 255, 255) 70%, rgba(211, 211, 211, 0) 100%);
+    --background: linear-gradient(to bottom,  rgb(255, 255, 255) 70%, rgba(255, 255, 255, 0) 100%);
     --box-shadow: None;
     direction: rtl;
   }
@@ -69,7 +64,7 @@ ion-footer > ion-toolbar {
   display: flex;
   align-items: center;
   justify-content: center;
-  --background: linear-gradient(to top,  rgb(255, 255, 255) 35%, rgba(211, 211, 211, 0) 100%);
+  --background: linear-gradient(to top,  rgba(255, 255, 255, 1) 70%, rgba(255, 255, 255, 0) 100%);
   --box-shadow: None;
 }
 

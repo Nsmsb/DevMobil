@@ -26,5 +26,10 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 ion-modal {
-    --border-radius: 25px 25px 0 0 !important;
-  }
+  --border-radius: 25px 25px 0 0 !important;
+}
+
+ion-content, ion-list {
+  background: #fcfdfe !important;
+  --background: #fcfdfe !important;
+}
