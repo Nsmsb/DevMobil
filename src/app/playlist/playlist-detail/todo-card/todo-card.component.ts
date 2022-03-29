@@ -12,13 +12,13 @@ export class TodoCardComponent {
 
   @Input() todo: Todo;
 
-  constructor(private playlistService: PlaylistService, private route: ActivatedRoute) { }
+  constructor(private playlistService: PlaylistService) { }
 
   async changeCompleted(todo: Todo): Promise<void> {
     // immediately update todo
     todo.completed = !todo.completed;
     // send update to backend
-    this.playlistService.updateTodo(this.route.snapshot.params.id, {id: todo.id, completed: todo.completed});
+    this.playlistService.updateTodo(todo.playlistId, {id: todo.id, completed: todo.completed});
   }
 
 }
