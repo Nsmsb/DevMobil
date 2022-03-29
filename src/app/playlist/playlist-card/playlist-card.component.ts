@@ -6,7 +6,7 @@ import { Playlist } from 'src/app/models/playlist';
   templateUrl: './playlist-card.component.html',
   styleUrls: ['./playlist-card.component.scss'],
 })
-export class PlaylistCardComponent implements OnInit {
+export class PlaylistCardComponent {
   
   @Input() playlist: Playlist;
   readonly slideOpt = {
@@ -18,7 +18,5 @@ export class PlaylistCardComponent implements OnInit {
   }
 
   constructor() { }
-
-  ngOnInit() {}
 
 }

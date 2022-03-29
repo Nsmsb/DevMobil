@@ -16,29 +16,7 @@
   <div id="container">
     <ion-list *ngIf="playlist.todos$ | async as todos; else notYetCreated">
       <ion-item-sliding *ngFor="let todo of todos; trackBy:trackFunction">
-            <ion-item lines="none" (click)="changeCompleted(todo)">
-              <ion-label>
-                <ion-grid>
-                    <ion-row>
-                    <ion-col size="1" class="vertical-center">
-                      <div [ngClass]="{'mid-priority': todo.priority === 'med', 'high-priority': todo.priority === 'high'}" class="circle"></div>
-                    </ion-col>
-                    <ion-col size="11">
-                      
-                      <ion-row [ngClass]="{'strikethrough': todo.completed}" class="todo-title">
-                        {{ todo.name | titlecase }}
-                      </ion-row>
-                      <ion-row>
-                        <ion-label class="todo-description ion-text-wrap">
-                          {{todo.description}}
-                        </ion-label>
-                      </ion-row>
-                    </ion-col>
-                  </ion-row>
-                </ion-grid>
-              </ion-label>
-              <ion-checkbox mode="ios" slot="end" checked="{{todo.completed}}" ></ion-checkbox>
-            </ion-item>
+            <app-todo-card [todo]="todo"></app-todo-card>
             <ion-item-options side="end">
               <ion-item-option class="edite-option" (click)="update(todo)">
                 <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>

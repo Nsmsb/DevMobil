@@ -5,12 +5,14 @@ import { PlaylistDetailRoutingModule } from './playlist-detail-routing.module';
 import { IonicModule } from '@ionic/angular';
 import { CreateTodoComponent } from 'src/app/modals/todo-form/todo-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TodoCardComponent } from './todo-card/todo-card.component';
 
 
 @NgModule({
   declarations: [
     PlaylistDetailComponent,
-    CreateTodoComponent
+    CreateTodoComponent,
+    TodoCardComponent
   ],
   imports: [
     CommonModule,
