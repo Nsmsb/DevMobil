@@ -1,53 +1,10 @@
-#container {
-  text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
-}
-
+/* footer & header style */
 ion-footer > ion-toolbar {
   height: 130px ;
   display: flex;
   align-items: center;
   justify-content: center;
   --background: linear-gradient(to top,  rgba(255, 255, 255, 1) 0%, rgba(233, 233, 233, 0) 100%);
-}
-
-ion-fab-button {
-  --box-shadow: None;
- }
-
- ion-content, ion-list {
-  --background: #f8f8f8;
-  background: #f8f8f8;
-
-}
-
-ion-item {
-  --color: #636e72;
-  font-weight: 500;
-  font-size: large;
 }
 
 
@@ -62,12 +19,12 @@ ion-header > ion-toolbar {
 }
 
 ion-footer > ion-toolbar {
-height: 130px ;
-display: flex;
-align-items: center;
-justify-content: center;
---background: linear-gradient(to top,  rgb(255, 255, 255) 35%, rgba(211, 211, 211, 0) 100%);
---box-shadow: None;
+  height: 130px ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --background: linear-gradient(to top,  rgb(255, 255, 255) 35%, rgba(211, 211, 211, 0) 100%);
+  --box-shadow: None;
 }
 
 ion-fab-button {
@@ -80,10 +37,27 @@ ion-fab-button {
 0 12px 12px rgba(0,0,0,0.11),
 }
 
-ion-card {
-  margin: 10px;
-  border-radius: 30px !important;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05), 
-              0 2px 4px rgba(0,0,0,0.05), 
-              0 4px 8px rgba(0,0,0,0.05);
+
+/* options style */
+
+ion-item-option {
+  background-color: transparent;
+}
+
+ion-item-option > ion-icon{
+  font-size: 30px;
+  border-radius: 20px;
+  padding: 5px;
+  margin-left: 0;
+  color: #74b9ff;
+}
+
+/* sections style */
+.section {
+  padding-top: 20px !important;
+}
+.section > h3 {
+  margin-left: 16px;
+  color: #b2bec3;
+  font-size: large;
 }
