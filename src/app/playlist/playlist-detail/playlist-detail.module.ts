@@ -19,6 +19,7 @@ import { TodoCardComponent } from './todo-card/todo-card.component';
     IonicModule,
     ReactiveFormsModule,
     PlaylistDetailRoutingModule
-  ]
+  ],
+  exports: [TodoCardComponent]
 })
 export class PlaylistDetailModule { }
