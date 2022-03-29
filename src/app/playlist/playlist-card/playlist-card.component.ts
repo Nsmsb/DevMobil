@@ -9,13 +9,6 @@ import { Playlist } from 'src/app/models/playlist';
 export class PlaylistCardComponent {
   
   @Input() playlist: Playlist;
-  readonly slideOpt = {
-    direction: 'vertical',
-    slidesPerView: 2,
-    pagination: {
-      el: '.swiper-pagination',
-    }
-  }
 
   constructor() { }
 

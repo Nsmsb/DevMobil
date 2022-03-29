@@ -1,5 +1,11 @@
 <ion-card>
-  <ion-item [routerLink]="[playlist.id]" routerLinkActive="true">
-    <ion-label>{{ playlist.name }}</ion-label>
-  </ion-item>
+  <ion-card-header>
+    <ion-item lines="none" [routerLink]="[playlist.id]" routerLinkActive="true">
+    <ion-card-title>
+        <ion-label>{{ playlist.name }}</ion-label>
+        <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+      </ion-card-title>
+    </ion-item>
+  </ion-card-header>
+
 </ion-card>
