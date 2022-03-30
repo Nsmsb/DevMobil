@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActionCodeSettings } from "firebase/auth";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +13,7 @@ export class RegisterPage implements OnInit {
 
   private registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private afAuth: AngularFireAuth) { 
+  constructor(private fb: FormBuilder, private afAuth: AngularFireAuth, private router: Router) { 
     this.registerForm = this.fb.group({
       mail: ['', [Validators.required, Validators.minLength(3)]],
       mdp: ['', Validators.maxLength(255)],
@@ -27,7 +29,13 @@ export class RegisterPage implements OnInit {
     }
     else{
       const res = this.afAuth.createUserWithEmailAndPassword(this.registerForm.value.mail, this.registerForm.value.mdp);
-      res.then(data =>console.log(data.user.metadata));
+      res.then(data => {console.log(
+        data.user.metadata) ; 
+        let auth :ActionCodeSettings;
+        const mail = data.user.sendEmailVerification();
+        mail.then(data => this.router.navigate(['/']));
+        mail.catch(data => alert("erreure de l'envoie du mail de vérification"));
+       });
       res.catch(error => alert("echec de la création de compte"));
     }
   }

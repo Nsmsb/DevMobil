@@ -28,7 +28,11 @@ export class LoginPage implements OnInit {
     try{
       const connectedUserCredentails = await this.afAuth.signInWithEmailAndPassword(this.loginForm.value.mail, this.loginForm.value.mdp);
 
-      //TODO : Valider la connexion
+      if(!connectedUserCredentails.user.emailVerified){
+        alert("vous n'avez pas encore valider votre email, valider le pour vous connectez.");
+        return;
+      }
+
       this.userService.setuser(connectedUserCredentails.user.email, connectedUserCredentails.user.uid);
       this.router.navigate(['/']);
     }catch(error){
