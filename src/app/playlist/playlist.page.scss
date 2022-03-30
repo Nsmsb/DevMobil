@@ -1,27 +1,79 @@
-#container {
-  text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+/* footer & header style */
+ion-footer > ion-toolbar {
+  height: 130px ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --background: linear-gradient(to top,  rgba(255, 255, 255, 1) 0%, rgba(233, 233, 233, 0) 100%);
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+
+ion-header > ion-toolbar {
+  height: 100px ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --background: linear-gradient(to bottom,  rgb(255, 255, 255) 70%, rgba(211, 211, 211, 0) 100%);
+  --box-shadow: None;
+  direction: rtl;
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
+ion-footer > ion-toolbar {
+  height: 130px ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --background: linear-gradient(to top,  rgb(255, 255, 255) 35%, rgba(211, 211, 211, 0) 100%);
+  --box-shadow: None;
+}
 
-  color: #8c8c8c;
+ion-fab-button {
+  --background: #74b9ff;
+  font-size: 3em;
+--box-shadow: 0 1px 1px rgba(0,0,0,0.08), 
+0 2px 2px rgba(0,0,0,0.08), 
+0 4px 4px rgba(0,0,0,0.08),
+0 8px 8px rgba(0,0,0,0.08),
+0 12px 12px rgba(0,0,0,0.11),
+}
 
+/* user section */
+.user-section {
+  margin-left: 20px;
+}
+.user-section > h1 {
+  font-size: xx-large;
+  color: #2d3436;
+}
+
+/* options style */
+
+ion-item-option {
+  background-color: transparent;
+}
+
+ion-item-option > ion-icon{
+  font-size: 30px;
+  border-radius: 20px;
+  padding: 5px;
+  margin-left: 0;
+  color: #74b9ff;
+}
+
+/* sections style */
+.section {
+  padding-top: 15px !important;
+}
+.section > h3 {
+  margin-left: 16px;
+  color: #b2bec3;
+  font-size: large;
+}
+
+ion-list {
   margin: 0;
+  padding: 0;
 }
-
-#container a {
-  text-decoration: none;
+ion-slide {
+  margin: 10px;
 }

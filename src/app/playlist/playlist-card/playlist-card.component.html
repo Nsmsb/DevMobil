@@ -1,0 +1,28 @@
+<ion-card [ngClass]="playlist.style">
+  <ion-card-header>
+    <ion-item lines="none" [routerLink]="[playlist.id]" routerLinkActive="true">
+    <ion-card-title>
+        <ion-card-subtitle id="progress" *ngIf="(progress$ | async) as progress">{{progress.all}} tasks</ion-card-subtitle>
+        <ion-label>{{ playlist.name }}</ion-label>
+        <ion-card-subtitle id="owber">By @nsmsb</ion-card-subtitle>
+      </ion-card-title>
+    </ion-item>
+  </ion-card-header>
+  <ion-card-content *ngIf="(progress$ | async) as progress">
+    <ion-item lines="none">
+      <ion-label>
+        Done {{progress.completed}}, Waiting {{progress.all-progress.completed}}
+      </ion-label>
+    </ion-item>
+    <!-- <ion-list *ngIf="(prioritaryTodos$ | async) as items" class="prioritary-section">
+      
+      <ion-item *ngFor="let item of items" lines="none">
+        <ion-icon name="ellipse" slot="start"></ion-icon>
+        <ion-label>{{item.name}}</ion-label>
+      </ion-item>
+    </ion-list> -->
+    <div class="progress-container">
+      <ion-progress-bar value="{{(progress.completed/progress.all) || 0}}" color="light"></ion-progress-bar>
+    </div>
+  </ion-card-content>
+</ion-card>

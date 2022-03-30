@@ -1,8 +1,13 @@
-<ion-header [translucent]="true">
+<ion-header class="ion-no-border" [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Playlists
-    </ion-title>
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button menu="main"></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -13,26 +18,43 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <ion-list *ngIf="(playlists$ | async) as playlists; else loading">
-      <ion-item-sliding *ngFor="let playlist of playlists;">
-        <ion-item [routerLink]="[playlist?.id]" routerLinkActive="true">
-          <ion-label>{{ playlist.name }}</ion-label>
-        </ion-item>
+  <div class="user-section">
+    <h1>What's up, {{currentUser.name.split(' ')[0] | titlecase}}!</h1>
+  </div>
+
+  <div class="section">
+    <h3>{{'All playlists' | uppercase}}</h3>
+    <ion-slides *ngIf="(playlists$ | async) as playlists;" [options]="slideOpt">
+      <ion-slide *ngFor="let playlist of playlists;">
+          <app-playlist-card [playlist]="playlist"></app-playlist-card>
+      </ion-slide>
+    </ion-slides>
+
+  </div>
+
+  <div class="section">
+    <h3>{{'Today\'s tasks' | uppercase}}</h3>
+    <ion-list *ngIf="(todayItems | async) as items; else loading">
+      <ion-item-sliding *ngFor="let item of items; trackBy:trackFunction" >
+        <app-todo-card [todo]="item"></app-todo-card>
         <ion-item-options side="end">
-          <ion-item-option (click)="delete(playlist)" color="danger">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          <ion-item-option class="view-list-option" [routerLink]="[item.playlistId]" routerLinkActive="true">
+            <ion-icon slot="icon-only" name="reorder-four-outline"></ion-icon>
+            <ion-ripple-effect type="unbounded"></ion-ripple-effect>
           </ion-item-option>
         </ion-item-options>
-        
       </ion-item-sliding>
-      <ion-item *ngIf="playlists.length === 0">
-        <ion-label>No playlist exists !</ion-label>
-      </ion-item>
     </ion-list>
     <ng-template #loading>
       <h3>Loading playlists ...</h3>
     </ng-template>
-    <ion-button expand="block" (click)="openModal()">Add Playlist</ion-button>
   </div>
 </ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <ion-row class="ion-justify-content-center">
+      <ion-fab-button size="large" (click)="openModal()">+</ion-fab-button>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

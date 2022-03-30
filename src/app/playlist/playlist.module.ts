@@ -6,8 +6,8 @@ import { PlaylistPage } from './playlist.page';
 
 import { PlaylistPageRoutingModule } from './playlist-routing.module';
 import { CreatePlaylistComponent } from '../modals/create-playlist/create-playlist.component';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-
+import { PlaylistCardComponent } from './playlist-card/playlist-card.component';
+import { PlaylistDetailModule } from './playlist-detail/playlist-detail.module';
 
 @NgModule({
   imports: [
@@ -15,8 +15,9 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    PlaylistPageRoutingModule
+    PlaylistPageRoutingModule,
+    PlaylistDetailModule
   ],
-  declarations: [PlaylistPage, CreatePlaylistComponent]
+  declarations: [PlaylistPage, CreatePlaylistComponent, PlaylistCardComponent]
 })
 export class PlaylistPageModule { }

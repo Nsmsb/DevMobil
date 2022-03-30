@@ -51,10 +51,7 @@ export class LoginPage implements OnInit {
       this.router.navigate(['/']);
     } catch (error) {
       console.log(error);
-      
     }
-
-
   }
 
   async logout(): Promise<void> {

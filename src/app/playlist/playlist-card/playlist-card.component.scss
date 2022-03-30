@@ -1,0 +1,88 @@
+
+ion-card {
+    width: 300px;
+    height: 180px;
+    margin: 10px;
+    border-radius: 30px !important;
+    background: #74b9ff;
+    background-image: url('/assets/shapes-pattern.png');
+    background-size: 130%;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03), 
+                0 2px 4px rgba(0,0,0,0.03), 
+                0 4px 8px rgba(0,0,0,0.05),
+                0 8px 12px rgba(0,0,0,0.03);
+
+  }
+
+/* custom backgrounds and colors */
+.blue {
+    background: #74b9ff;
+    background-image: url('/assets/starts.png');
+    background-size: 220%;
+}
+
+.red {
+    background-color: #ff7675;
+    background-image: url('/assets/shapes-pattern.png');
+    background-size: 260%;
+}
+
+.orange {
+    background: #fdcb6e;
+    background-image: url('/assets/cir-rec-tri.png');
+    background-size: 130%;
+}
+
+.green {
+    background: #55efc4;
+    background-image: url('/assets/gift.png');
+    background-size: 200%;
+}
+
+ion-item, ion-list {
+    background: transparent !important;
+    --background: transparent !important;
+}
+
+ion-card-title > ion-label {
+    font-size: larger;
+}
+
+ion-card-subtitle, ion-label {
+    font-weight: 600;
+    --color: #fff !important;
+    margin: 1px;
+}
+
+ion-list {
+    padding: 0;
+}
+
+ion-item {
+    --ripple-color: transparent;
+}
+
+ion-list > ion-item {
+    --padding-bottom: 0;
+    --padding-top: 0;
+    --inner-padding-bottom: 0;
+    --inner-padding-top: 0;
+    --min-height: 16px;
+}
+
+ion-icon {
+    font-size: x-small;
+    margin: 6px;
+    --color: #fff !important;
+    color: #fff !important;
+}
+
+.progress-container {
+    // margin-top: 40px;
+    width: 90%;
+    margin: auto;
+    // box-shadow: 0 0 2px 2px rgba(255, 255, 255, 0.15);
+}
+ion-progress-bar {
+    --progress-background: linear-gradient(to bottom, #DDD 0%, #CCC 100%);
+  }
