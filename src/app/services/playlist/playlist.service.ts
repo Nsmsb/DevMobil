@@ -19,10 +19,19 @@ export class PlaylistService {
   }
 
   getAll(): Observable<Playlist[]> {
-    return this.playlists;
+    return this.playlists.pipe(
+      switchMap(playlists => {
+      return of(playlists.map(
+        playlist => ({
+          ...playlist,
+          todos$: this.getTodos(playlist.id)
+        })
+      ));
+    }));
   }
 
   getOne(id: string): Observable<Playlist> {
+    // TODO: add caching
     return this.playlists.pipe(
       switchMap(playlists => {
         const playlist = playlists.find(playlist => playlist.id === id);
