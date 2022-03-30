@@ -14,7 +14,7 @@ export class PlaylistService {
   playlistCollection: AngularFirestoreCollection<Playlist>;
 
   constructor(private afs: AngularFirestore, private userService: UserService) {
-    this.playlistCollection = this.afs.collection<Playlist>('playlists', ref => ref.where(`roles.${userService.user?.id}`, '>', 1));
+    this.playlistCollection = this.afs.collection<Playlist>('playlists', ref => ref.where(`roles.${userService.user?.id}`, '>=', 1));
     this.playlists = this.playlistCollection.valueChanges({idField: 'id'});
   }
 
@@ -43,7 +43,7 @@ export class PlaylistService {
           todos$: this.getTodos(playlist?.id)
         });
       }));
-  }  
+  }
 
   private getTodos(playlistId: string): Observable<Todo[]> {
     return this.afs.collection<Todo>(`playlists/${playlistId}/todos`).valueChanges({idField: 'id'})
