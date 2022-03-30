@@ -1,0 +1,106 @@
+.style-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+ion-radio {
+    width: 25px;
+    height: 25px;
+    margin: 20px 10px;
+}
+
+.blue {
+    --color: #74b9ff;
+    --color-checked: #74b9ff;
+    background: #74b9ff;
+    border-radius: 25px;
+}
+
+.blue.radio-checked {
+    box-shadow: 0 0 0 1px #74b9ff;
+}
+
+
+.red {
+    --color: #ff7675;
+    --color-checked: #ff7675;
+    background: #ff7675;
+    border-radius: 25px;
+}
+.red.radio-checked {
+    box-shadow: 0 0 0 1px #ff7675;
+}
+
+.orange {
+    --color: #fdcb6e;
+    --color-checked: #fdcb6e;
+    background: #fdcb6e;
+    border-radius: 25px;
+}
+.orange.radio-checked {
+    box-shadow: 0 0 0 1px #fdcb6e;
+}
+
+
+.green {
+    --color: #55efc4;
+    --color-checked: #55efc4;
+    background: #55efc4;
+    border-radius: 25px;
+}
+.green.radio-checked {
+    box-shadow: 0 0 0 1px #55efc4;
+}
+
+
+.radio-checked {
+    border: 2px solid #ffffff;
+    width: 27px;
+    height: 27px;
+}
+
+div.item-inner-highlight {
+    border-color: #ffffff !important;
+}
+
+/*  inputs design */
+
+ion-input, ion-textarea {
+    border-radius: 10px;
+    padding: 3px 10px !important;
+    margin-top: 20px;
+    border: 3px solid #f0f0f0;
+    --color: #636e72;
+    --placeholder-color: #bfc7ca;
+    margin-left: auto;
+    margin-right: auto;
+}
+ion-textarea {
+    min-height: 120px !important;
+}
+
+ion-input.has-focus {
+    border: 3px solid #74b9ff;
+}
+
+ion-label {
+    font-size: larger !important;
+    font-weight: bolder;
+    color: #2d3436 !important;
+    /* padding-left: 30px; */
+}
+
+
+
+ion-button {
+    --background: #74b9ff;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    --box-shadow: 0 1px 1px rgba(0,0,0,0.08), 
+  0 2px 2px rgba(0,0,0,0.08), 
+  0 4px 4px rgba(0,0,0,0.08),
+  0 8px 8px rgba(0,0,0,0.08),
+  0 12px 12px rgba(0,0,0,0.11);
+}

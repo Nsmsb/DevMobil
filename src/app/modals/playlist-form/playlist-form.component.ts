@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { Playlist } from 'src/app/models/playlist';
 import { PlaylistService } from 'src/app/services/playlist/playlist.service';
 
 @Component({
@@ -10,18 +11,32 @@ import { PlaylistService } from 'src/app/services/playlist/playlist.service';
 })
 export class PlaylistFormComponent implements OnInit {
 
-  playlistForm: FormGroup
+  @Input() playlist: Playlist;
+  playlistForm: FormGroup;
 
   constructor(private fb: FormBuilder, private playlistService: PlaylistService,
     private modalController: ModalController) {
-    this.playlistForm = this.fb.group({ name: ['', [Validators.required, Validators.minLength(3)]] });
+    this.playlistForm = this.fb.group({ 
+      name: ['', [Validators.required, Validators.minLength(3)]] ,
+      style: ['blue', [Validators.required]] ,
+    });
   }
 
-  ngOnInit() { }
-
-  addPlaylist() {
-    this.playlistService.addPlaylist(this.playlistForm.value);
-    this.modalController.dismiss();
+  ngOnInit() {
+    if (this.playlist) {
+      this.playlistForm.setValue({
+        name: this.playlist.name,
+        style: this.playlist.style,
+      });
+    }
   }
+
+  saveItem(): void {
+    const newPlaylist:Partial<Playlist> = this.playlistForm.value;
+
+    // return new data
+    this.modalController.dismiss(newPlaylist);
+  }
+
 
 }

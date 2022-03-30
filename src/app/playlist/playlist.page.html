@@ -19,7 +19,7 @@
   </ion-header>
 
   <div class="user-section">
-    <h1>What's up, {{currentUser.name.split(' ')[0] | titlecase}}!</h1>
+    <h1>What's up, {{(currentUser.name.split(' ')[0] || currentUser.email.split)| titlecase}}!</h1>
   </div>
 
   <div class="section">
@@ -54,7 +54,7 @@
 <ion-footer class="ion-no-border">
   <ion-toolbar>
     <ion-row class="ion-justify-content-center">
-      <ion-fab-button size="large" (click)="openModal()">+</ion-fab-button>
+      <ion-fab-button size="large" (click)="creatList()">+</ion-fab-button>
     </ion-row>
   </ion-toolbar>
 </ion-footer>

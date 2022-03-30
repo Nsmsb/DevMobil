@@ -21,6 +21,7 @@ export class PlaylistPage implements OnInit {
   readonly slideOpt = {
     direction: 'horizontal',
     slidesPerView: 1.25,
+    spaceBetween: 1,
     pagination: {
       el: '.swiper-pagination',
     }
@@ -53,12 +54,27 @@ export class PlaylistPage implements OnInit {
     this.playlistService.removePlaylist(playlist);
   }
 
-  async openModal() {
+  async openModal(playlist: Playlist = null): Promise<Partial<Playlist>>  {
     // TODO: complete CreatePlaylistComponent and change logic
     const modal = await this.modalController.create({
-      component: PlaylistFormComponent
+      component: PlaylistFormComponent,
+      cssClass: 'modal',
+      swipeToClose: true, // swipe to close modal
+      initialBreakpoint: 0.7,
+      breakpoints: [0, 0.7],
+
+      componentProps: {
+        playlist: playlist 
+      }
     });
     await modal.present();
+    return (await (modal.onDidDismiss()))?.data;
+  }
+
+  async creatList() {
+    const newList = await this.openModal();
+    if (newList)
+      this.playlistService.addPlaylist(newList as Playlist);
   }
 
 }
