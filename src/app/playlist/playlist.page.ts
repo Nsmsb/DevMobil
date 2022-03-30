@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { CreatePlaylistComponent } from '../modals/create-playlist/create-playlist.component';
+import { PlaylistFormComponent } from '../modals/playlist-form/playlist-form.component';
 import { Playlist } from '../models/playlist';
 import { PlaylistService } from '../services/playlist/playlist.service';
 import { EMPTY, Observable } from 'rxjs';
@@ -56,7 +56,7 @@ export class PlaylistPage implements OnInit {
   async openModal() {
     // TODO: complete CreatePlaylistComponent and change logic
     const modal = await this.modalController.create({
-      component: CreatePlaylistComponent
+      component: PlaylistFormComponent
     });
     await modal.present();
   }

@@ -5,10 +5,10 @@ import { PlaylistService } from 'src/app/services/playlist/playlist.service';
 
 @Component({
   selector: 'app-create-playlist',
-  templateUrl: './create-playlist.component.html',
-  styleUrls: ['./create-playlist.component.scss'],
+  templateUrl: './playlist-form.component.html',
+  styleUrls: ['./playlist-form.component.scss'],
 })
-export class CreatePlaylistComponent implements OnInit {
+export class PlaylistFormComponent implements OnInit {
 
   playlistForm: FormGroup
 

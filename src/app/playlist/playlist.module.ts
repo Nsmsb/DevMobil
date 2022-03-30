@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PlaylistPage } from './playlist.page';
 
 import { PlaylistPageRoutingModule } from './playlist-routing.module';
-import { CreatePlaylistComponent } from '../modals/create-playlist/create-playlist.component';
+import { PlaylistFormComponent } from '../modals/playlist-form/playlist-form.component';
 import { PlaylistCardComponent } from './playlist-card/playlist-card.component';
 import { PlaylistDetailModule } from './playlist-detail/playlist-detail.module';
 
@@ -18,6 +18,6 @@ import { PlaylistDetailModule } from './playlist-detail/playlist-detail.module';
     PlaylistPageRoutingModule,
     PlaylistDetailModule
   ],
-  declarations: [PlaylistPage, CreatePlaylistComponent, PlaylistCardComponent]
+  declarations: [PlaylistPage, PlaylistFormComponent, PlaylistCardComponent]
 })
 export class PlaylistPageModule { }

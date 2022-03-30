@@ -1,9 +1,9 @@
  import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { CreatePlaylistComponent } from './create-playlist.component';
+import { PlaylistFormComponent } from './playlist-form.component';
 
-describe('CreatePlaylistComponent', () => {
+describe('PlaylistFormComponent', () => {
   let component: CreatePlaylistComponent;
   let fixture: ComponentFixture<CreatePlaylistComponent>;
 
