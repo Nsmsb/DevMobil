@@ -1,9 +1,7 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="primary">
-      <ion-button class="back-btn" [routerLink]="['/playlist']">
-        <ion-icon slot="icon-only" name="reorder-three-outline"></ion-icon>
-      </ion-button>
+      <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>
       {{(playlist$ | async)?.name | titlecase}}
