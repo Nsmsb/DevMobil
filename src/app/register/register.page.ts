@@ -25,9 +25,11 @@ export class RegisterPage implements OnInit {
     if(this.registerForm.value.mdp !== this.registerForm.value.mdp2){
       alert("le mot de passe et la confirmation ne corresponde pas")
     }
-    const res = this.afAuth.createUserWithEmailAndPassword(this.registerForm.value.mail, this.registerForm.value.mdp);
-    res.then(data =>console.log(data.user.metadata));
-    res.catch(error => alert("echec de la création de compte"));
+    else{
+      const res = this.afAuth.createUserWithEmailAndPassword(this.registerForm.value.mail, this.registerForm.value.mdp);
+      res.then(data =>console.log(data.user.metadata));
+      res.catch(error => alert("echec de la création de compte"));
+    }
   }
 
 }

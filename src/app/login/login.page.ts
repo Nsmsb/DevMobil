@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserService } from '../services/auth/user.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,7 @@ export class LoginPage implements OnInit {
 
   private loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private afAuth: AngularFireAuth) { 
+  constructor(private fb: FormBuilder, private afAuth: AngularFireAuth, private userService: UserService, private router: Router) { 
     this.loginForm = this.fb.group({
       mail: ['', [Validators.required, Validators.minLength(3)]],
       mdp: ['', Validators.maxLength(255)],
@@ -22,14 +24,36 @@ export class LoginPage implements OnInit {
   }
 
 
-  connexion() {
-    const res = this.afAuth.signInWithEmailAndPassword(this.loginForm.value.mail, this.loginForm.value.mdp);
+  async connexion() {
+    try{
+      const connectedUserCredentails = await this.afAuth.signInWithEmailAndPassword(this.loginForm.value.mail, this.loginForm.value.mdp);
 
-    //TODO : Valider la connexion
-    res.then(data => console.log(data.user.metadata));
+      //TODO : Valider la connexion
+      this.userService.setuser(connectedUserCredentails.user.email, connectedUserCredentails.user.uid);
+      this.router.navigate(['/']);
+    }catch(error){
+      alert("identifiant non reconnue");
+    }
 
-    //la connexion a échouer
-    res.catch(error => alert("identifiant inconnue"))
   }
 
+  isLogged(): boolean {
+    return this.userService.isLogged();
+  }
+
+  async login(): Promise<void> {
+    try {
+      await this.userService.login();
+      this.router.navigate(['/']);
+    } catch (error) {
+      console.log(error);
+      
+    }
+
+
+  }
+
+  async logout(): Promise<void> {
+    await this.userService.logout();
+  }
 }

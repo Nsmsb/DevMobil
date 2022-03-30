@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Identification</ion-title>
+    <ion-title>login</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -18,4 +18,6 @@
   
     <ion-button [disabled]="loginForm.invalid" expand="block" type="submit">Validate</ion-button>
   </form>
+  <ion-button expand="block" (click)="login()">Login</ion-button>
+  <ion-button expand="block" (click)="logout()">Logout</ion-button>
 </ion-content>
