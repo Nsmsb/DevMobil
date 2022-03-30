@@ -37,6 +37,14 @@ ion-fab-button {
 0 12px 12px rgba(0,0,0,0.11),
 }
 
+/* user section */
+.user-section {
+  margin-left: 20px;
+}
+.user-section > h1 {
+  font-size: xx-large;
+  color: #2d3436;
+}
 
 /* options style */
 
@@ -54,10 +62,18 @@ ion-item-option > ion-icon{
 
 /* sections style */
 .section {
-  padding-top: 20px !important;
+  padding-top: 15px !important;
 }
 .section > h3 {
   margin-left: 16px;
   color: #b2bec3;
   font-size: large;
+}
+
+ion-list {
+  margin: 0;
+  padding: 0;
+}
+ion-slide {
+  margin: 10px;
 }

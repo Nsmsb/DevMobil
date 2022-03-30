@@ -1,8 +1,13 @@
 <ion-header class="ion-no-border" [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Playlists
-    </ion-title>
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button menu="main"></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -13,8 +18,12 @@
     </ion-toolbar>
   </ion-header>
 
+  <div class="user-section">
+    <h1>What's up, {{currentUser.name.split(' ')[0] | titlecase}}!</h1>
+  </div>
+
   <div class="section">
-    <h3>{{'Shared with me' | uppercase}}</h3>
+    <h3>{{'All playlists' | uppercase}}</h3>
     <ion-slides *ngIf="(playlists$ | async) as playlists;" [options]="slideOpt">
       <ion-slide *ngFor="let playlist of playlists;">
           <app-playlist-card [playlist]="playlist"></app-playlist-card>
@@ -26,7 +35,7 @@
   <div class="section">
     <h3>{{'Today\'s tasks' | uppercase}}</h3>
     <ion-list *ngIf="(todayItems | async) as items; else loading">
-      <ion-item-sliding *ngFor="let item of items;" >
+      <ion-item-sliding *ngFor="let item of items; trackBy:trackFunction" >
         <app-todo-card [todo]="item"></app-todo-card>
         <ion-item-options side="end">
           <ion-item-option class="view-list-option" [routerLink]="[item.playlistId]" routerLinkActive="true">
