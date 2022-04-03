@@ -28,6 +28,101 @@ ion-header > ion-toolbar {
     direction: rtl;
   }
 
+/* classes for custom style */
+.blue {
+  background: #74b9ff !important;
+  background-image: url('/assets/starts.png') !important;
+  background-size: 220% !important;
+}
+.blue-fab {
+  --background: #74b9ff;
+}
+
+.red {
+  background-color: #ff7675 !important;
+  background-image: url('/assets/shapes-pattern.png') !important;
+  background-size: 260% !important;
+}
+.red-fab {
+  --background: #ff7675;
+}
+
+.orange {
+  background: #fdcb6e !important;
+  background-image: url('/assets/cir-rec-tri.png') !important;
+  background-size: 130% !important;
+}
+.orange-fab {
+  --background: #fdcb6e;
+}
+
+.green {
+  background: #55efc4 !important;
+  background-image: url('/assets/gift.png') !important;
+  background-size: 200% !important;
+}
+.green-fab {
+  --background: #55efc4;
+}
+
+/* playlist header */
+#playlist-header {
+  border-radius: 30px !important;
+  margin: 0 15px 15px 15px;
+  padding: 15px 0;
+  background: #74b9ff;
+  background-image: url('/assets/shapes-pattern.png');
+  background-size: 130%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03), 
+              0 2px 4px rgba(0,0,0,0.03), 
+              0 4px 8px rgba(0,0,0,0.05),
+              0 8px 12px rgba(0,0,0,0.03);
+}
+
+ion-grid {
+  padding: 0 20px;
+}
+.title {
+  font-size: xx-large;
+}
+.owner {
+  font-size: medium;
+  font-weight: 600;
+}
+.progress {
+  font-size: x-large;
+  margin: 15px 0;
+}
+
+ion-label {
+  color: #fff;
+}
+
+ion-button {
+  --background: none;
+  --box-shadow: none;
+  background-image: none !important;
+}
+
+ion-icon {
+  font-size: 30px;
+}
+
+ion-col {
+  display: flex;
+  justify-content: center;
+}
+
+/* list section */
+h3 {
+  margin-top: 16px ;
+  margin-left: 16px;
+  color: #b2bec3;
+  font-size: large;
+}
+
+/* footer */
+
 ion-footer > ion-toolbar {
   height: 130px ;
   display: flex;
@@ -38,9 +133,9 @@ ion-footer > ion-toolbar {
 }
 
 ion-fab-button {
-    --background: #74b9ff;
-    font-size: 3em;
-  --box-shadow: 0 1px 1px rgba(0,0,0,0.08), 
+  --background: #74b9ff;
+  font-size: 3em;
+--box-shadow: 0 1px 1px rgba(0,0,0,0.08), 
   0 2px 2px rgba(0,0,0,0.08), 
   0 4px 4px rgba(0,0,0,0.08),
   0 8px 8px rgba(0,0,0,0.08),
@@ -49,3 +144,16 @@ ion-fab-button {
 
 
 
+/* empty list */
+
+.empty-list > h3 {
+  font-size: larger;
+  text-align: center;
+}
+
+.empty-list > img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+}
