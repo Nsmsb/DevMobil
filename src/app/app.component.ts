@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { User } from './models/user';
-import { UserService } from './services/auth/user.service';
+import { AuthService } from './services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -12,18 +12,18 @@ export class AppComponent implements OnInit {
 
   currentUser: User;
 
-  constructor(private userService: UserService, private menu: MenuController) {}
+  constructor(private authService: AuthService, private menu: MenuController) {}
 
   ngOnInit(): void {
     // enabling/disabling menu when on innit and depending of user auth status
-    this.userService.onUserLoginChanges.subscribe((isLogged) => {
+    this.authService.onUserLoginChanges.subscribe((isLogged) => {
       this.menu.enable(isLogged, 'main');
-      this.currentUser = this.userService.user;
+      this.currentUser = this.authService.user;
     });
   }
 
   async logout(): Promise<void> {
     // waiting for logout
-    await this.userService.logout();
+    await this.authService.logout();
   }
 }

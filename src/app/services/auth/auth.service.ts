@@ -9,7 +9,7 @@ import { User } from '../../models/user';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class AuthService {
 
   private connectedUser: User;
   private userLoginChangesSubject: Subject<boolean>;

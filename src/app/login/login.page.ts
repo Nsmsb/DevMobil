@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../services/auth/user.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,18 +9,18 @@ import { UserService } from '../services/auth/user.service';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
 
   isLogged(): boolean {
-    return this.userService.isLogged();
+    return this.authService.isLogged();
   }
 
   async login(): Promise<void> {
     try {
-      await this.userService.login();
+      await this.authService.login();
       this.router.navigate(['/']);
     } catch (error) {
       console.log(error);

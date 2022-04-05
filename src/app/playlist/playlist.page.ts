@@ -6,7 +6,7 @@ import { PlaylistService } from '../services/playlist/playlist.service';
 import { EMPTY, Observable } from 'rxjs';
 import { Todo } from '../models/todo';
 import { switchMap } from 'rxjs/operators';
-import { UserService } from '../services/auth/user.service';
+import { AuthService } from '../services/auth/auth.service';
 import { User } from '../models/user';
 import { Router } from '@angular/router';
 
@@ -31,12 +31,12 @@ export class PlaylistPage implements OnInit {
   
   constructor(
     private playlistService: PlaylistService,
-    private userService: UserService,
+    private authService: AuthService,
     private router: Router,
     private modalController: ModalController,
     ) {}
     
-  readonly currentUser: User = this.userService.user;
+  readonly currentUser: User = this.authService.user;
 
   ngOnInit(): void {
     this.playlists$ = this.playlistService.getAll();

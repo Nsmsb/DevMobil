@@ -4,7 +4,7 @@ import { Todo } from '../../models/todo';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { UserService } from '../auth/user.service';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +13,8 @@ export class PlaylistService {
   playlists: Observable<Playlist[]> = of([]);
   playlistCollection: AngularFirestoreCollection<Playlist>;
 
-  constructor(private afs: AngularFirestore, private userService: UserService) {
-    this.playlistCollection = this.afs.collection<Playlist>('playlists', ref => ref.where(`roles.${userService.user?.id}`, '>=', 1));
+  constructor(private afs: AngularFirestore, private authService: AuthService) {
+    this.playlistCollection = this.afs.collection<Playlist>('playlists', ref => ref.where(`roles.${authService.user?.id}`, '>=', 1));
     this.playlists = this.playlistCollection.valueChanges({idField: 'id'});
   }
 
@@ -30,7 +30,7 @@ export class PlaylistService {
       return of(playlists.map(
         playlist => ({
           ...playlist,
-          myRole: playlist.roles[this.userService.user.id],
+          myRole: playlist.roles[this.authService.user.id],
           todos$: this.getTodos(playlist.id)
         })
       ));
@@ -49,7 +49,7 @@ export class PlaylistService {
         return of({
           ...playlist,
           todos$: this.getTodos(playlist?.id),
-          myRole: playlist.roles[this.userService.user.id]
+          myRole: playlist.roles[this.authService.user.id]
         });
       }));
   }
@@ -61,10 +61,10 @@ export class PlaylistService {
 
   addPlaylist(playlist: Playlist): Promise<void> {
     const roles = {};
-    roles[this.userService.user.id] = 7;
+    roles[this.authService.user.id] = 7;
     return this.playlistCollection.add({
       ...playlist,
-      owner: this.userService.user.name,
+      owner: this.authService.user.name,
       roles: roles
     })
     // return a void promise to enable user (dev) to wait for result or handle error
