@@ -47,5 +47,25 @@ ion-fab-button {
   0 12px 12px rgba(0,0,0,0.11),
  }
 
+ ion-label{
+   display: block;
+   text-align: center;
+ }
+
+ ion-item{
+   display: block;
+   width: 100%;
+ }
+
+ h3 {
+   text-align: center;
+ }
+
+ img{
+  width: 25%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+ }
 
 

@@ -29,9 +29,7 @@ export class RegisterPage implements OnInit {
     }
     else{
       const res = this.afAuth.createUserWithEmailAndPassword(this.registerForm.value.mail, this.registerForm.value.mdp);
-      res.then(data => {console.log(
-        data.user.metadata) ; 
-        let auth :ActionCodeSettings;
+      res.then(data => {
         const mail = data.user.sendEmailVerification();
         mail.then(data => this.router.navigate(['/']));
         mail.catch(data => alert("erreure de l'envoie du mail de vérification"));

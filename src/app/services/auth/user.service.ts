@@ -22,8 +22,9 @@ export class UserService {
       this.connectedUser = {
         id: user.uid,
         email: user.email,
-        name: user.displayName
+        name: user.displayName || this.connectedUser.email.split(new RegExp(/[-._@]/))[0]
       }
+      
       localStorage.setItem('user', JSON.stringify(this.connectedUser));
     })
   }

@@ -22,34 +22,44 @@
     <h1>What's up, {{currentUser.name.split(' ')[0] | titlecase}}!</h1>
   </div>
 
-  <div class="section">
-    <h3>{{'All playlists' | uppercase}}</h3>
-    <ion-slides *ngIf="(playlists$ | async) as playlists;" [options]="slideOpt">
-      <ion-slide *ngFor="let playlist of playlists;">
-          <app-playlist-card [playlist]="playlist"></app-playlist-card>
-      </ion-slide>
-    </ion-slides>
+    <ion-item *ngIf="(playlists$ | async) as playlists; else empty">
+    <ion-item *ngIf="playlists!==0; else empty"> 
+      <div class="section">
+          <h3>{{'All playlists' | uppercase}}</h3>
+          <ion-slides>
+          <ion-slide *ngFor="let playlist of playlists;">
+              <app-playlist-card [playlist]="playlist"></app-playlist-card>
+          </ion-slide>
+        </ion-slides>
 
-  </div>
+      </div>
 
-  <div class="section">
-    <h3>{{'Today\'s tasks' | uppercase}}</h3>
-    <ion-list *ngIf="(todayItems | async) as items; else loading">
-      <ion-item-sliding *ngFor="let item of items; trackBy:trackFunction" >
-        <app-todo-card [todo]="item"></app-todo-card>
-        <ion-item-options side="end">
-          <ion-item-option class="view-list-option" [routerLink]="[item.playlistId]" routerLinkActive="true">
-            <ion-icon slot="icon-only" name="reorder-four-outline"></ion-icon>
-            <ion-ripple-effect type="unbounded"></ion-ripple-effect>
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-    </ion-list>
-    <ng-template #loading>
-      <h3>Loading playlists ...</h3>
-    </ng-template>
-  </div>
+      <div class="section">
+        <ion-list *ngIf="(todayItems | async) as items; else loading">
+          <h3>{{'Today\'s tasks' | uppercase}}</h3>
+          <ion-item-sliding *ngFor="let item of items; trackBy:trackFunction" >
+            <app-todo-card [todo]="item"></app-todo-card>
+            <ion-item-options side="end">
+              <ion-item-option class="view-list-option" [routerLink]="[item.playlistId]" routerLinkActive="true">
+                <ion-icon slot="icon-only" name="reorder-four-outline"></ion-icon>
+                <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+        <ng-template #loading>
+          <h3>Sorry we couldn't find todo in this playlist</h3>
+          <img src="https://cdn.icon-icons.com/icons2/1875/PNG/512/fileempty_120151.png">
+        </ng-template>
+      </div>
+    </ion-item>
+  </ion-item>
 </ion-content>
+
+<ng-template #empty>
+  <h3>Sorry we couldn't find playlist</h3>
+  <img src="https://cdn-icons-png.flaticon.com/512/14/14355.png">
+</ng-template>
 
 <ion-footer class="ion-no-border">
   <ion-toolbar>

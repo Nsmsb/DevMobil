@@ -16,6 +16,7 @@ export class PlaylistDetailComponent implements OnInit {
 
   public playlist$: Observable<Playlist>;
   public currentStateMessage: string = 'Loadign playlist..';
+  public etat : boolean = false;
 
   constructor(private route: ActivatedRoute,
     private playlistService: PlaylistService,
@@ -27,6 +28,7 @@ export class PlaylistDetailComponent implements OnInit {
     this.playlist$.subscribe((playlist) => {        
       if (!playlist) {
         this.currentStateMessage = 'Sorry, we couldn\!t find this playlist !';
+        this.etat = true;
       }
     });
   }

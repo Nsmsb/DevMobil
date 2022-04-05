@@ -4,22 +4,23 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-content>
+  <form [formGroup]="registerForm" (ngSubmit)="inscription()">
+    <ion-item>
+      <ion-label position="stacked">Mail</ion-label>
+      <ion-input type="mail" placeholder="Adresse email" formControlName="mail"></ion-input>
+    </ion-item>
 
-<form [formGroup]="registerForm" (ngSubmit)="inscription()">
-  <ion-item>
-    <ion-label position="stacked">Mail</ion-label>
-    <ion-input formControlName="mail"></ion-input>
-  </ion-item>
+    <ion-item>
+      <ion-label position="stacked">mot de passe</ion-label>
+      <ion-input type="password" placeholder="Mot de passe" formControlName="mdp"></ion-input>
+    </ion-item>
 
-  <ion-item>
-    <ion-label position="stacked">mot de passe</ion-label>
-    <ion-input formControlName="mdp"></ion-input>
-  </ion-item>
+    <ion-item>
+      <ion-label position="stacked">confirmation du mot de passe</ion-label>
+      <ion-input type="password" placeholder="Confirmer le mot de passe" formControlName="mdp2"></ion-input>
+    </ion-item>
 
-  <ion-item>
-    <ion-label position="stacked">confirmation mot de passe</ion-label>
-    <ion-input formControlName="mdp2"></ion-input>
-  </ion-item>
-
-  <ion-button [disabled]="registerForm.invalid" expand="block" type="submit">Validate</ion-button>
-</form>
+    <ion-button [disabled]="registerForm.invalid" expand="block" type="submit">Validate</ion-button>
+  </form>
+</ion-content>
