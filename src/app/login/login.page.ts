@@ -32,7 +32,7 @@ export class LoginPage implements OnInit {
         alert("vous n'avez pas encore valider votre email, valider le pour vous connectez.");
         return;
       }
-      
+
       this.userService.setuser("teste", connectedUserCredentails.user.uid);
       this.router.navigate(['/']);
     }catch(error){
@@ -40,6 +40,10 @@ export class LoginPage implements OnInit {
       console.log(error);
     }
 
+  }
+
+  public register(){
+    this.router.navigate(['/register']);
   }
 
   isLogged(): boolean {
