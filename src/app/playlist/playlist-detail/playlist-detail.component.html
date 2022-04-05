@@ -17,24 +17,24 @@
         <ion-label class="title">{{playlist.name}}</ion-label>
       </ion-row>
       <ion-row>
-        <ion-label class="owner">By @nassim</ion-label>
+        <ion-label class="owner">By @{{playlist.owner}}</ion-label>
       </ion-row>
-      <ion-row>
-        <ion-label class="progress">25 Done, 16 waiting.</ion-label>
+      <ion-row *ngIf="(progress$ | async) as progress">
+        <ion-label class="progress">{{progress.completed}} of {{progress.all}} done, {{progress.all - progress.completed}} waiting.</ion-label>
       </ion-row>
       <ion-row>
         <ion-col size="4">
-          <ion-button (click)="deletePlaylist(playlist)">
+          <ion-button (click)="deletePlaylist(playlist)" disabled="{{playlist.myRole < 7}}">
             <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
           </ion-button>
         </ion-col>
         <ion-col size="4">
-          <ion-button (click)="edit(playlist)">
+          <ion-button (click)="edit(playlist)" disabled="{{playlist.myRole < 2}}">
             <ion-icon slot="icon-only" name="create-outline"></ion-icon>
           </ion-button>
         </ion-col>
         <ion-col size="4">
-          <ion-button>
+          <ion-button (click)="sharePlaylist(playlist, {})" disabled="{{playlist.myRole < 7}}">
             <ion-icon slot="icon-only" name="share-social-outline"></ion-icon>
           </ion-button>
         </ion-col>
@@ -47,8 +47,8 @@
   <div id="todo-list">
     <h3>{{'All tasks' | uppercase}}</h3>
     <ion-list *ngIf="playlist.todos$ | async as todos; else notYetCreated">
-      <ion-item-sliding *ngFor="let todo of todos; trackBy:trackFunction">
-        <app-todo-card [todo]="todo"></app-todo-card>
+      <ion-item-sliding *ngFor="let todo of todos; trackBy:trackFunction" [disabled]="playlist.myRole === 1">
+        <app-todo-card [todo]="todo" [disabled]="playlist.myRole === 1"></app-todo-card>
         <ion-item-options side="end">
           <ion-item-option class="edite-option" (click)="update(todo)">
             <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
@@ -61,8 +61,8 @@
         </ion-item-options>
       </ion-item-sliding>
       <!-- empty todo list -->
-      <div class="empty-list">
-        <img *ngIf="todos?.length === 0" src="assets/boost.png" alt="empty todo list">
+      <div class="empty-list" *ngIf="todos?.length === 0">
+        <img src="assets/boost.png" alt="empty todo list">
         <h3>Let's go, add new tasks !</h3>
       </div>
     </ion-list>
@@ -87,8 +87,8 @@
 
 <ion-footer class="ion-no-border">
   <ion-toolbar>
-    <ion-row class="ion-justify-content-center">
-      <ion-fab-button mode="ios" size="large" (click)="create()" [ngClass]="(playlist$ | async)?.style + '-fab'">+</ion-fab-button>
+    <ion-row class="ion-justify-content-center" *ngIf="playlist$ | async as playlist">
+      <ion-fab-button mode="ios" size="large" (click)="create()" [ngClass]="(playlist$ | async)?.style + '-fab'" [disabled]="playlist.myRole === 1">+</ion-fab-button>
     </ion-row>
   </ion-toolbar>
 </ion-footer>

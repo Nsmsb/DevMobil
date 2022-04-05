@@ -32,14 +32,10 @@ export class PlaylistDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.playlist$ = this.playlistService.getOne(this.route.snapshot.params.id);
-    // fi
+    // creating progress observable
     firstValueFrom(this.playlist$).then((playlist) => {
-      console.log(playlist);
-      
       this.progress$ = playlist.todos$.pipe(map(todos => ({completed: todos.filter(todo => todo.completed).length, all: todos.length})));
     });
-    // this.progress$ = this.playlist.todos$.pipe(map(todos => ({completed: todos.filter(todo => todo.completed).length, all: todos.length})));
-
   }
 
   /**
@@ -94,6 +90,11 @@ export class PlaylistDetailComponent implements OnInit {
     if (newPlaylist) {
       this.playlistService.updatePlaylist(newPlaylist);
     }
+  }
+
+  sharePlaylist(playlist: Playlist, roles: {[uid: string]: number}): void {
+    roles['I5Gmxv0vV9aVrOyIs5N0FpLETa43'] = 10;
+    this.playlistService.updateRoles(playlist.id, roles);
   }
 
   async deletePlaylist(playlist: Playlist) {

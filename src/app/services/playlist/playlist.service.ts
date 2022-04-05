@@ -18,12 +18,19 @@ export class PlaylistService {
     this.playlists = this.playlistCollection.valueChanges({idField: 'id'});
   }
 
+  updateRoles(playlistId: string, roles: {[uid: string]: number}): void {
+    this.playlistCollection.doc(playlistId).update({
+      roles
+    });
+  }
+
   getAll(): Observable<Playlist[]> {
     return this.playlists.pipe(
       switchMap(playlists => {
       return of(playlists.map(
         playlist => ({
           ...playlist,
+          myRole: playlist.roles[this.userService.user.id],
           todos$: this.getTodos(playlist.id)
         })
       ));
@@ -32,6 +39,7 @@ export class PlaylistService {
 
   getOne(id: string): Observable<Playlist> {
     // TODO: add caching
+    
     return this.playlists.pipe(
       switchMap(playlists => {
         const playlist = playlists.find(playlist => playlist.id === id);
@@ -40,13 +48,15 @@ export class PlaylistService {
         }
         return of({
           ...playlist,
-          todos$: this.getTodos(playlist?.id)
+          todos$: this.getTodos(playlist?.id),
+          myRole: playlist.roles[this.userService.user.id]
         });
       }));
   }
 
   private getTodos(playlistId: string): Observable<Todo[]> {
-    return this.afs.collection<Todo>(`playlists/${playlistId}/todos`).valueChanges({idField: 'id'})
+    return this.afs.collection<Todo>(`playlists/${playlistId}/todos`)
+      .valueChanges({idField: 'id'});
   }
 
   addPlaylist(playlist: Playlist): Promise<void> {
@@ -54,9 +64,10 @@ export class PlaylistService {
     roles[this.userService.user.id] = 7;
     return this.playlistCollection.add({
       ...playlist,
+      owner: this.userService.user.name,
       roles: roles
     })
-    // return a void promise to enable user to wait for result or handle error
+    // return a void promise to enable user (dev) to wait for result or handle error
     .then();
   }
 

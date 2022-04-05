@@ -11,6 +11,7 @@ import { PlaylistService } from 'src/app/services/playlist/playlist.service';
 export class TodoCardComponent {
 
   @Input() todo: Todo;
+  @Input() disabled: boolean = false;
 
   constructor(private playlistService: PlaylistService) { }
 
