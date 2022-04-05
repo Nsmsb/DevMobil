@@ -22,8 +22,8 @@
     <h1>What's up, {{currentUser.name.split(' ')[0] | titlecase}}!</h1>
   </div>
 
-    <ion-item *ngIf="(playlists$ | async) as playlists; else empty">
-    <ion-item *ngIf="playlists!==0; else empty"> 
+  <ion-item *ngIf="(playlists$ | async) as playlists;">
+    <ion-item *ngIf="playlists.length !==0; else empty"> 
       <div class="section">
           <h3>{{'All playlists' | uppercase}}</h3>
           <ion-slides>
