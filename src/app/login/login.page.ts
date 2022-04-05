@@ -26,8 +26,4 @@ export class LoginPage implements OnInit {
       console.log(error);
     }
   }
-
-  async logout(): Promise<void> {
-    await this.userService.logout();
-  }
 }
