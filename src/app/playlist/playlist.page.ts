@@ -63,8 +63,8 @@ export class PlaylistPage implements OnInit {
       component: PlaylistFormComponent,
       cssClass: 'modal',
       swipeToClose: true, // swipe to close modal
-      initialBreakpoint: 0.7,
-      breakpoints: [0, 0.7],
+      initialBreakpoint: 0.5,
+      breakpoints: [0, 0.5],
 
       componentProps: {
         playlist: playlist 
