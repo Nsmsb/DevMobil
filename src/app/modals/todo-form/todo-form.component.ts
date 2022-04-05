@@ -10,7 +10,7 @@ import { PlaylistService } from 'src/app/services/playlist/playlist.service';
   templateUrl: './todo-form.component.html',
   styleUrls: ['./todo-form.component.css']
 })
-export class CreateTodoComponent implements OnInit {
+export class TodoFormComponent implements OnInit {
 
   @Input() playlistId: string;
   @Input() todo: Todo;

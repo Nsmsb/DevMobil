@@ -32,7 +32,10 @@ export class PlaylistFormComponent implements OnInit {
   }
 
   saveItem(): void {
-    const newPlaylist:Partial<Playlist> = this.playlistForm.value;
+    const newPlaylist:Partial<Playlist> = {
+      ...this.playlist,
+      ...this.playlistForm.value,
+    };
 
     // return new data
     this.modalController.dismiss(newPlaylist);

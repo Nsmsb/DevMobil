@@ -8,6 +8,7 @@ import { Todo } from '../models/todo';
 import { switchMap } from 'rxjs/operators';
 import { UserService } from '../services/auth/user.service';
 import { User } from '../models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-playlist',
@@ -28,8 +29,10 @@ export class PlaylistPage implements OnInit {
   };
   
   
-  constructor(private playlistService: PlaylistService,
+  constructor(
+    private playlistService: PlaylistService,
     private userService: UserService,
+    private router: Router,
     private modalController: ModalController,
     ) {}
     
@@ -73,8 +76,11 @@ export class PlaylistPage implements OnInit {
 
   async creatList() {
     const newList = await this.openModal();
-    if (newList)
-      this.playlistService.addPlaylist(newList as Playlist);
+    if (newList) {
+      this.playlistService.addPlaylist(newList as Playlist).then(console.log);
+      // TODO: navigate to playlist page
+      // this.router.navigate(['playlist', ])
+    }
   }
 
 }

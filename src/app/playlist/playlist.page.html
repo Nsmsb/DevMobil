@@ -19,7 +19,7 @@
   </ion-header>
 
   <div class="user-section">
-    <h1>What's up, {{(currentUser.name.split(' ')[0] || currentUser.email.split)| titlecase}}!</h1>
+    <h1>What's up, {{(currentUser.name.split(' ')[0] || currentUser.email.split('@')[0])| titlecase}}!</h1>
   </div>
 
   <div class="section">

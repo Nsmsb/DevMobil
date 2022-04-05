@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController, ModalController } from '@ionic/angular';
 import { Observable } from 'rxjs';
-import { CreateTodoComponent } from 'src/app/modals/todo-form/todo-form.component';
+import { PlaylistFormComponent } from 'src/app/modals/playlist-form/playlist-form.component';
+import { TodoFormComponent } from 'src/app/modals/todo-form/todo-form.component';
 import { Playlist } from 'src/app/models/playlist';
 import { Todo } from 'src/app/models/todo';
 import { PlaylistService } from 'src/app/services/playlist/playlist.service';
@@ -17,9 +18,12 @@ export class PlaylistDetailComponent implements OnInit {
   public playlist$: Observable<Playlist>;
   public currentStateMessage: string = 'Loadign playlist..';
 
-  constructor(private route: ActivatedRoute,
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     private playlistService: PlaylistService,
     private modalController: ModalController,
+    private alertController: AlertController,
     ) { }
 
   ngOnInit(): void {
@@ -58,15 +62,64 @@ export class PlaylistDetailComponent implements OnInit {
     this.playlistService.updateTodo(this.route.snapshot.params.id, {id: todo.id, completed: todo.completed});
   }
 
-  async creat() {
+  async create() {
     const newTodo = await this.openModal();
     if (newTodo)
       this.playlistService.addTodo(this.route.snapshot.params.id, newTodo as Todo);
   }
 
+  async edit(playlist: Playlist) {
+    const modal = await this.modalController.create({
+      component: PlaylistFormComponent,
+      cssClass: 'modal',
+      swipeToClose: true, // swipe to close modal
+      initialBreakpoint: 0.5,
+      breakpoints: [0, 0.5],
+
+      componentProps: {
+        playlist: playlist,
+      }
+    });
+    // waiting for modal
+    await modal.present();
+    const newPlaylist = (await modal.onDidDismiss())?.data;
+    //  if modal is not aborted
+    if (newPlaylist) {
+      this.playlistService.updatePlaylist(newPlaylist);
+    }
+  }
+
+  async deletePlaylist(playlist: Playlist) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Confirm!',
+      message: `Do you want to delete <strong>${playlist.name}</strong> playlist ?`,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          id: 'cancel-button',
+        }, {
+          text: 'Continue',
+          role: 'continue',
+          id: 'confirm-button',
+        }
+      ]
+    });
+    // waiting for confirmation
+    await alert.present();
+    const answer = (await alert.onDidDismiss())?.role === 'continue';
+    if (answer) {
+      this.playlistService.removePlaylist(playlist);
+      this.router.navigate(['playlist']);
+    }
+    
+  }
+
   private async openModal(todo: Todo = null): Promise<Partial<Todo>> {    
     const modal = await this.modalController.create({
-      component: CreateTodoComponent,
+      component: TodoFormComponent,
       cssClass: 'modal',
       swipeToClose: true, // swipe to close modal
       initialBreakpoint: 0.7,
@@ -77,8 +130,7 @@ export class PlaylistDetailComponent implements OnInit {
         todo: todo 
       }
     });
-
-    
+    // waiting for modal
     await modal.present();
     return (await (modal.onDidDismiss()))?.data;
   }
