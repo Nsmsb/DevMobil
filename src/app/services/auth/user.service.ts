@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
+import { map, Observable, Subject } from 'rxjs';
 import { User } from '../../models/user';
 
 
@@ -10,27 +12,45 @@ import { User } from '../../models/user';
 export class UserService {
 
   private connectedUser: User;
+  private userLoginChangesSubject: Subject<boolean>;
 
-  constructor(private auth: AngularFireAuth) {
+  constructor(private auth: AngularFireAuth, private router: Router) {
+    // creating subject
+    this.userLoginChangesSubject = new Subject();
+    // getting user info from localstorage
     this.connectedUser = JSON.parse(localStorage.getItem('user'));
+
+    // subscribing to changes, and updating local cache to make sure user is always authenticated
     auth.onAuthStateChanged((user) => {      
       if (!user) {
         localStorage.removeItem('user');
+        router.navigate(['/login']);
+        // notify subject
+        this.userLoginChangesSubject.next(false);
         return
       }
       
+      // updating connected user
       this.connectedUser = {
         id: user.uid,
         email: user.email,
-        name: user.displayName
+        name: user.displayName,
+        picture: user.photoURL,
       }
       localStorage.setItem('user', JSON.stringify(this.connectedUser));
-    })
+      // notify subject
+      this.userLoginChangesSubject.next(true);
+    });
+
   }
 
   get user() {
     return this.connectedUser;
   }
+
+  get onUserLoginChanges() {
+    return this.userLoginChangesSubject.asObservable();
+  } 
 
   isLogged(): boolean {    
     if (!this.connectedUser) {
