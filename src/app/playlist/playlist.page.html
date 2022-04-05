@@ -24,7 +24,7 @@
 
   <div class="section">
     <h3>{{'All playlists' | uppercase}}</h3>
-    <div *ngIf="(playlists$ | async) as playlists; else loading" [options]="slideOpt">
+    <div *ngIf="(playlists$ | async) as playlists; else loading">
       <ion-slides *ngIf="playlists.length!==0;else emptyPlaylist">
       <ion-slide *ngFor="let playlist of playlists;">
           <app-playlist-card [playlist]="playlist"></app-playlist-card>

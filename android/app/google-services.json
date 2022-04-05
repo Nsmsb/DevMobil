@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "113850464355",
+    "project_id": "dev-mobil",
+    "storage_bucket": "dev-mobil.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:113850464355:android:44bfa7ea38dec85471e056",
+        "android_client_info": {
+          "package_name": "io.ionic.starter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "113850464355-dqcb01gadkdd7shk5vb6kerild2beli6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCo-rYtOE_kaH1hRLsJzayGDD6VXkwOvwk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "113850464355-dqcb01gadkdd7shk5vb6kerild2beli6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -32,11 +32,12 @@ export class LoginPage implements OnInit {
         alert("vous n'avez pas encore valider votre email, valider le pour vous connectez.");
         return;
       }
-
-      this.userService.setuser(connectedUserCredentails.user.email, connectedUserCredentails.user.uid);
+      
+      this.userService.setuser("teste", connectedUserCredentails.user.uid);
       this.router.navigate(['/']);
     }catch(error){
       alert("identifiant non reconnue");
+      console.log(error);
     }
 
   }
