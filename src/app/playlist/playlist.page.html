@@ -22,41 +22,44 @@
     <h1>What's up, {{currentUser.name.split(' ')[0] | titlecase}}!</h1>
   </div>
 
-  <ion-item *ngIf="(playlists$ | async) as playlists;">
-    <ion-item *ngIf="playlists.length !==0; else empty"> 
-      <div class="section">
-          <h3>{{'All playlists' | uppercase}}</h3>
-          <ion-slides>
-          <ion-slide *ngFor="let playlist of playlists;">
-              <app-playlist-card [playlist]="playlist"></app-playlist-card>
-          </ion-slide>
-        </ion-slides>
+  <div class="section">
+    <h3>{{'All playlists' | uppercase}}</h3>
+    <div *ngIf="(playlists$ | async) as playlists; else loading" [options]="slideOpt">
+      <ion-slides *ngIf="playlists.length!==0;else emptyPlaylist">
+      <ion-slide *ngFor="let playlist of playlists;">
+          <app-playlist-card [playlist]="playlist"></app-playlist-card>
+      </ion-slide>
+    </ion-slides>
+    </div>
 
-      </div>
+  </div>
 
-      <div class="section">
-        <ion-list *ngIf="(todayItems | async) as items; else loading">
-          <h3>{{'Today\'s tasks' | uppercase}}</h3>
-          <ion-item-sliding *ngFor="let item of items; trackBy:trackFunction" >
-            <app-todo-card [todo]="item"></app-todo-card>
-            <ion-item-options side="end">
-              <ion-item-option class="view-list-option" [routerLink]="[item.playlistId]" routerLinkActive="true">
-                <ion-icon slot="icon-only" name="reorder-four-outline"></ion-icon>
-                <ion-ripple-effect type="unbounded"></ion-ripple-effect>
-              </ion-item-option>
-            </ion-item-options>
-          </ion-item-sliding>
-        </ion-list>
-        <ng-template #loading>
-          <h3>Sorry we couldn't find todo in this playlist</h3>
-          <img src="https://cdn.icon-icons.com/icons2/1875/PNG/512/fileempty_120151.png">
-        </ng-template>
-      </div>
-    </ion-item>
-  </ion-item>
+  <div class="section">
+    <ion-list *ngIf="(todayItems | async) as items; else emptyTodo;">
+      <h3>{{'Today\'s tasks' | uppercase}}</h3>
+      <ion-item-sliding *ngFor="let item of items; trackBy:trackFunction" >
+        <app-todo-card [todo]="item"></app-todo-card>
+        <ion-item-options side="end">
+          <ion-item-option class="view-list-option" [routerLink]="[item.playlistId]" routerLinkActive="true">
+            <ion-icon slot="icon-only" name="reorder-four-outline"></ion-icon>
+            <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+    <ng-template #loading>
+      <h3>Loading</h3>
+      <img src="https://images.assetsdelivery.com/compings_v2/vivat191192/vivat1911921911/vivat191192191100457.jpg">
+      </ng-template>
+  </div>
 </ion-content>
 
-<ng-template #empty>
+<ng-template #emptyTodo>
+  <h3>No tasks for day</h3>
+  <img src="https://cdn.icon-icons.com/icons2/1875/PNG/512/fileempty_120151.png">
+</ng-template>
+
+<ng-template #emptyPlaylist>
   <h3>Sorry we couldn't find playlist</h3>
   <img src="https://cdn-icons-png.flaticon.com/512/14/14355.png">
 </ng-template>
