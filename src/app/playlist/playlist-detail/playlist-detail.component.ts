@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
-import { Observable } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { PlaylistFormComponent } from 'src/app/modals/playlist-form/playlist-form.component';
 import { TodoFormComponent } from 'src/app/modals/todo-form/todo-form.component';
 import { Playlist } from 'src/app/models/playlist';
@@ -26,13 +27,19 @@ export class PlaylistDetailComponent implements OnInit {
     private alertController: AlertController,
     ) { }
 
+  progress$: Observable<{completed: number, all: number}>;
+
+
   ngOnInit(): void {
     this.playlist$ = this.playlistService.getOne(this.route.snapshot.params.id);
-    this.playlist$.subscribe((playlist) => {        
-      if (!playlist) {
-        this.currentStateMessage = 'Sorry, we couldn\!t find this playlist !';
-      }
+    // fi
+    firstValueFrom(this.playlist$).then((playlist) => {
+      console.log(playlist);
+      
+      this.progress$ = playlist.todos$.pipe(map(todos => ({completed: todos.filter(todo => todo.completed).length, all: todos.length})));
     });
+    // this.progress$ = this.playlist.todos$.pipe(map(todos => ({completed: todos.filter(todo => todo.completed).length, all: todos.length})));
+
   }
 
   /**
