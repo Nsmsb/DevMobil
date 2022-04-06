@@ -55,7 +55,7 @@ export class PlaylistDetailComponent implements OnInit {
   async update(todo: Todo): Promise<void> {
     const newTodo = await this.openModal(todo);
     if (newTodo)
-      this.playlistService.updateTodo(this.route.snapshot.params.id, newTodo);
+      this.playlistService.updateTodo(this.route.snapshot.params.id, newTodo);    
   }
 
   async changeCompleted(todo: Todo): Promise<void> {

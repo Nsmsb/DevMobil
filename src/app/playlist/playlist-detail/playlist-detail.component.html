@@ -63,7 +63,7 @@
       <!-- empty todo list -->
       <div class="empty-list" *ngIf="todos?.length === 0">
         <img src="assets/boost.png" alt="empty todo list">
-        <h3>Let's go, add new tasks !</h3>
+        <h3>{{playlist.name}} is ready, add new tasks !</h3>
       </div>
     </ion-list>
     <ng-template #notYetCreated>
@@ -71,7 +71,7 @@
         <ion-item>
           <div class="empty-list">
             <img src="assets/boost.png" alt="empty todo list">
-            <h3>Let's go, add new tasks !</h3>
+            <h3>No task exist, add new tasks !</h3>
           </div>
           <ion-label>{{playlist.name}} Todo list is empty !</ion-label>
         </ion-item>

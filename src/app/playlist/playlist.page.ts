@@ -17,8 +17,7 @@ import { FormControl } from '@angular/forms';
 })
 export class PlaylistPage implements OnInit, AfterViewInit {
 
-  playlists$: Observable<Playlist[]> = EMPTY;
-  topItems: Observable<Todo[]> = EMPTY;
+  /* slides options */
   readonly slideOpt = {
     direction: 'horizontal',
     slidesPerView: 1.25,
@@ -27,7 +26,15 @@ export class PlaylistPage implements OnInit, AfterViewInit {
       el: '.swiper-pagination',
     }
   };
+
+  /* playlists and top todo items */
+  playlists$: Observable<Playlist[]> = EMPTY;
+  topItems: Observable<Todo[]> = EMPTY;
+  
+
+  /* formControl for select (filter) input */
   playlistFilterControl: FormControl = new FormControl();
+  /* map to store functions, to avoid using a switch statement or loop */
   readonly filtersMap = {
     all: this.allFilter,
     mines: this.minesFilter,
@@ -61,12 +68,20 @@ export class PlaylistPage implements OnInit, AfterViewInit {
     this.playlistFilterControl.setValue('all');    
   }
 
+  /**
+   * make observable of next 10 items to do
+   * @param playlists$ all playlists
+   * @returns an observable of list of todo items
+   */
   getTopItems(playlists$: Observable<Playlist[]>): Observable<Todo[]> {
+    // mapping and flattening todo
     const allTodos: Observable<Todo[]> = playlists$
       .pipe(map(playlists => playlists.map(p => p.todos$)))     // mapping playlists to TODOs lists
       .pipe(switchMap(playlists$ => combineLatest(playlists$)   // Converting to 2D mat of TODOs
         .pipe(map(todoMat => [].concat.apply([], todoMat)))     // flattening 2d mat to 1D
       ));
+    
+    // returning sorted filtered items (top 10)
     return allTodos
       .pipe(map(todos => {
         const boolValues = {true: 1, false: 0};
@@ -76,6 +91,7 @@ export class PlaylistPage implements OnInit, AfterViewInit {
           low: 2
         }
         todos.sort((a, b) => {
+          // 
           if (a.completed != b.completed)
             return boolValues[String(a.completed)] - boolValues[String(b.completed)];
           return priorityValues[a.priority] - priorityValues[b.priority];
@@ -94,10 +110,19 @@ export class PlaylistPage implements OnInit, AfterViewInit {
     return item.id
   }
 
-  delete(playlist: Playlist) {
+  /**
+   * delete a playlist
+   * @param playlist to delete
+   */
+  delete(playlist: Playlist): void {
     this.playlistService.removePlaylist(playlist);
   }
 
+  /**
+   * open modal to create/edit a playlist
+   * @param playlist to edit, used to fill form
+   * @returns playlist raw value
+   */
   async openModal(playlist: Playlist = null): Promise<Partial<Playlist>>  {
     // TODO: complete CreatePlaylistComponent and change logic
     const modal = await this.modalController.create({
@@ -111,11 +136,16 @@ export class PlaylistPage implements OnInit, AfterViewInit {
         playlist: playlist 
       }
     });
+    // waiting for user input
     await modal.present();
+    // return form value
     return (await (modal.onDidDismiss()))?.data;
   }
 
-  async creatList() {
+  /**
+   * create new playlist
+   */
+  async creatList(): Promise<void> {
     const newList = await this.openModal();
     if (newList) {
       this.playlistService.addPlaylist(newList as Playlist).then(console.log);
