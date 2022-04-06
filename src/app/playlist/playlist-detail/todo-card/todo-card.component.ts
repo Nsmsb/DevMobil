@@ -11,11 +11,10 @@ import { PlaylistService } from 'src/app/services/playlist/playlist.service';
 export class TodoCardComponent {
 
   @Input() todo: Todo;
-  @Input() disabled: boolean = false;
 
   constructor(private playlistService: PlaylistService) { }
 
-  async changeCompleted(todo: Todo): Promise<void> {
+  async changeCompleted(todo: Todo): Promise<void> {    
     // immediately update todo
     todo.completed = !todo.completed;
     // send update to backend

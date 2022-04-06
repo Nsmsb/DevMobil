@@ -48,7 +48,7 @@
     <h3>{{'All tasks' | uppercase}}</h3>
     <ion-list *ngIf="playlist.todos$ | async as todos; else notYetCreated">
       <ion-item-sliding *ngFor="let todo of todos; trackBy:trackFunction" [disabled]="playlist.myRole === 1">
-        <app-todo-card [todo]="todo" [disabled]="playlist.myRole === 1"></app-todo-card>
+        <app-todo-card [todo]="todo"></app-todo-card>
         <ion-item-options side="end">
           <ion-item-option class="edite-option" (click)="update(todo)">
             <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>

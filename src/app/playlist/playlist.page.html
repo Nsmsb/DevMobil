@@ -38,13 +38,12 @@
           <app-playlist-card [playlist]="playlist"></app-playlist-card>
       </ion-slide>
     </ion-slides>
-
   </div>
 
   <div class="section">
       <h3>{{'Next tasks' | uppercase}}</h3>
     <ion-list *ngIf="(topItems | async) as items; else loading">
-      <ion-item-sliding *ngFor="let item of items; trackBy:trackFunction" >
+      <ion-item-sliding *ngFor="let item of items; trackBy:trackFunction" [disabled]="true">
         <app-todo-card [todo]="item"></app-todo-card>
         <ion-item-options side="end">
           <ion-item-option class="view-list-option" [routerLink]="[item.playlistId]" routerLinkActive="true">

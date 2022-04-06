@@ -3,7 +3,7 @@ import { Playlist } from '../../models/playlist';
 import { Todo } from '../../models/todo';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { switchMap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { Observable, of, map } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 
 @Injectable({
@@ -15,7 +15,16 @@ export class PlaylistService {
 
   constructor(private afs: AngularFirestore, private authService: AuthService) {
     this.playlistCollection = this.afs.collection<Playlist>('playlists', ref => ref.where(`roles.${authService.user?.id}`, '>=', 1));
-    this.playlists = this.playlistCollection.valueChanges({idField: 'id'});
+    this.playlists = this.playlistCollection.valueChanges({idField: 'id'})
+      .pipe(switchMap(playlists => {
+        return of(playlists.map(
+          playlist => ({
+            ...playlist,
+            myRole: playlist.roles[this.authService.user.id],
+            todos$: this.getTodos(playlist.id)
+          })
+        ));
+      }));
   }
 
   updateRoles(playlistId: string, roles: {[uid: string]: number}): void {
@@ -28,29 +37,23 @@ export class PlaylistService {
     return this.playlists.pipe(
       switchMap(playlists => {
       return of(playlists.map(
-        playlist => ({
+        playlist => {
+          const myRole = playlist.roles[this.authService.user.id];
+          return {
           ...playlist,
-          myRole: playlist.roles[this.authService.user.id],
-          todos$: this.getTodos(playlist.id)
-        })
+          myRole: myRole,
+          todos$: this.getTodos(playlist.id).pipe(map(todos => todos.map(todo => ({...todo, disabled: myRole === 1}))))
+        };
+      }
       ));
     }));
   }
 
   getOne(id: string): Observable<Playlist> {
-    // TODO: add caching
-    
     return this.playlists.pipe(
       switchMap(playlists => {
         const playlist = playlists.find(playlist => playlist.id === id);
-        if (playlist === undefined) {
-          return of(null);
-        }
-        return of({
-          ...playlist,
-          todos$: this.getTodos(playlist?.id),
-          myRole: playlist.roles[this.authService.user.id]
-        });
+        return of(playlist);
       }));
   }
 
