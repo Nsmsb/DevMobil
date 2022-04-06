@@ -18,12 +18,17 @@ export class LoginPage implements OnInit {
     return this.authService.isLogged();
   }
 
+  async signUp(): Promise<void> {
+      await this.authService.signUp();
+      alert('Thankyou for sign up, a verification mail is sent, please verify your account to use tha app');
+  }
+
   async login(): Promise<void> {
     try {
       await this.authService.login();
       this.router.navigate(['/']);
     } catch (error) {
-      console.log(error);
+      alert('Ivalid user informations and accoun deosn\'t exists.')
     }
   }
 }

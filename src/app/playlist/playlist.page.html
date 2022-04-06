@@ -32,31 +32,42 @@
       </ion-select>
     </div>
 
-    <!-- slides -->
-    <ion-slides *ngIf="(playlists$ | async) as playlists;" [options]="slideOpt">
-      <ion-slide *ngFor="let playlist of playlists;">
+    <div *ngIf="(playlists$ | async) as playlists">
+      <!-- slides -->
+      <ion-slides [options]="slideOpt">
+        <ion-slide *ngFor="let playlist of playlists;">
           <app-playlist-card [playlist]="playlist"></app-playlist-card>
-      </ion-slide>
-    </ion-slides>
+        </ion-slide>
+      </ion-slides>
+      <div *ngIf="playlists.length === 0">
+        <img src="assets/boost.png" alt="get started">
+        <h3 class="no-items">Creat a playlist, or check filters !</h3>
+      </div>
+    </div>
   </div>
 
   <div class="section">
-      <h3>{{'Next tasks' | uppercase}}</h3>
-    <ion-list *ngIf="(topItems | async) as items; else loading">
-      <ion-item-sliding *ngFor="let item of items; trackBy:trackFunction">
-        <app-todo-card [todo]="item"></app-todo-card>
-        <ion-item-options side="end">
-          <ion-item-option class="view-list-option" [routerLink]="[item.playlistId]" routerLinkActive="true">
-            <ion-icon slot="icon-only" name="reorder-four-outline"></ion-icon>
-            <ion-ripple-effect type="unbounded"></ion-ripple-effect>
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-    </ion-list>
-    <ng-template #loading>
-      <h3>Loading playlists ...</h3>
-    </ng-template>
+    <h3>{{'Next tasks' | uppercase}}</h3>
+    <div *ngIf="(topItems | async) as items">
+      <ion-list>
+        <ion-item-sliding *ngFor="let item of items; trackBy:trackFunction">
+          <app-todo-card [todo]="item"></app-todo-card>
+          <ion-item-options side="end">
+            <ion-item-option class="view-list-option" [routerLink]="[item.playlistId]" routerLinkActive="true">
+              <ion-icon slot="icon-only" name="reorder-four-outline"></ion-icon>
+              <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+    </div>
   </div>
+  <div>
+    <h3 class="no-items">No task todo</h3>
+  </div>
+  <!-- <ng-template #noNextItem>
+    <h3>Loading playlists ...</h3>
+  </ng-template> -->
 </ion-content>
 
 <ion-footer class="ion-no-border">

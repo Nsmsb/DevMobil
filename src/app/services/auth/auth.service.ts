@@ -76,7 +76,8 @@ export class AuthService {
     
     if (!connectedUserCredentails.user.emailVerified) {
       // TODO: use emailVerified as part of a guard
-      this.auth.signOut();
+      alert('please verify your email.')
+      await this.auth.signOut();
       return
     }
   }
