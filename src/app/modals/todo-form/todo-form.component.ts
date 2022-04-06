@@ -26,6 +26,7 @@ export class TodoFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // if an initial data is passed, then fill form
     if (this.todo) {
       this.todoForm.setValue({
         name: this.todo.name,
@@ -35,6 +36,9 @@ export class TodoFormComponent implements OnInit {
     }
   }
 
+  /**
+   * method to dismiss modal and pass data
+   */
   saveItem(): void {
     // excluding myRole and disabled fields
     const {myRole, disabled, ...formValue} = this.todoForm.value;

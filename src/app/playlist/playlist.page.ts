@@ -115,7 +115,7 @@ export class PlaylistPage implements OnInit, AfterViewInit {
    * @param playlist to delete
    */
   delete(playlist: Playlist): void {
-    this.playlistService.removePlaylist(playlist);
+    this.playlistService.removePlaylist(playlist.id);
   }
 
   /**
