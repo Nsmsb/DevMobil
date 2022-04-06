@@ -36,12 +36,15 @@ export class TodoFormComponent implements OnInit {
   }
 
   saveItem(): void {
+    // excluding my role field
+    const {myRole, formValue} = this.todoForm.value;
+    // new value
     const newTodo: Todo = {
       completed: false,
       priority: Priority.LOW,
       playlistId: this.playlistId,
       ...this.todo,
-      ...this.todoForm.value,
+      ...formValue,
     };
 
     // return new data

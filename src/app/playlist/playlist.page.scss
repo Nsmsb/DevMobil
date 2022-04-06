@@ -46,6 +46,17 @@ ion-fab-button {
   color: #2d3436;
 }
 
+/* filter container*/
+.filter-container {
+  display: flex;
+}
+ion-select {
+  padding-left: 4px;
+  margin-top: 5px;
+  color: #b2bec3;
+  font-size: large;
+}
+
 /* options style */
 
 ion-item-option {
@@ -64,7 +75,8 @@ ion-item-option > ion-icon{
 .section {
   padding-top: 15px !important;
 }
-.section > h3 {
+
+h3 {
   margin-left: 16px;
   color: #b2bec3;
   font-size: large;

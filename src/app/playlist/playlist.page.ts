@@ -1,24 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { PlaylistFormComponent } from '../modals/playlist-form/playlist-form.component';
 import { Playlist } from '../models/playlist';
 import { PlaylistService } from '../services/playlist/playlist.service';
-import { EMPTY, Observable } from 'rxjs';
+import { switchMap, EMPTY, map, Observable, combineLatest } from 'rxjs';
 import { Todo } from '../models/todo';
-import { switchMap } from 'rxjs/operators';
 import { AuthService } from '../services/auth/auth.service';
 import { User } from '../models/user';
 import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-playlist',
   templateUrl: 'playlist.page.html',
   styleUrls: ['playlist.page.scss'],
 })
-export class PlaylistPage implements OnInit {
+export class PlaylistPage implements OnInit, AfterViewInit {
 
   playlists$: Observable<Playlist[]> = EMPTY;
-  todayItems: Observable<Todo[]> = EMPTY;
+  topItems: Observable<Todo[]> = EMPTY;
   readonly slideOpt = {
     direction: 'horizontal',
     slidesPerView: 1.25,
@@ -27,20 +27,61 @@ export class PlaylistPage implements OnInit {
       el: '.swiper-pagination',
     }
   };
+  playlistFilterControl: FormControl = new FormControl();
+  readonly filtersMap = {
+    all: this.allFilter,
+    mines: this.minesFilter,
+    shared: this.sharedFilter,
+  }
   
   
   constructor(
     private playlistService: PlaylistService,
     private authService: AuthService,
-    private router: Router,
     private modalController: ModalController,
     ) {}
     
   readonly currentUser: User = this.authService.user;
 
   ngOnInit(): void {
-    this.playlists$ = this.playlistService.getAll();
-    this.todayItems = this.playlistService.getOne('ZKLXgN561Se9GBtAstzw').pipe(switchMap(playlis => playlis.todos$));
+    const allPlaylists = this.playlistService.getAll();
+
+    // making filtered lists observable
+    this.playlists$ = combineLatest([allPlaylists, this.playlistFilterControl.valueChanges])
+      .pipe(map(([playlist, val]) => {
+        return playlist.filter(this.filtersMap[val])
+      }));
+    
+    // making top items observable from filtered lists
+    this.topItems = this.getTopItems(this.playlists$);
+  }
+
+  ngAfterViewInit(): void {
+    // initializing value after components are rendered to give combineLatest() a first value
+    this.playlistFilterControl.setValue('all');    
+  }
+
+  getTopItems(playlists$: Observable<Playlist[]>): Observable<Todo[]> {
+    const allTodos: Observable<Todo[]> = playlists$
+      .pipe(map(playlists => playlists.map(p => p.todos$)))     // mapping playlists to TODOs lists
+      .pipe(switchMap(playlists$ => combineLatest(playlists$)   // Converting to 2D mat of TODOs
+        .pipe(map(todoMat => [].concat.apply([], todoMat)))     // flattening 2d mat to 1D
+      ));
+    return allTodos
+      .pipe(map(todos => {
+        const boolValues = {true: 1, false: 0};
+        const priorityValues = {
+          high: 0,
+          med: 1,
+          low: 2
+        }
+        todos.sort((a, b) => {
+          if (a.completed != b.completed)
+            return boolValues[String(a.completed)] - boolValues[String(b.completed)];
+          return priorityValues[a.priority] - priorityValues[b.priority];
+        });
+        return todos;
+      }));
   }
 
   /**
@@ -79,8 +120,21 @@ export class PlaylistPage implements OnInit {
     if (newList) {
       this.playlistService.addPlaylist(newList as Playlist).then(console.log);
       // TODO: navigate to playlist page
-      // this.router.navigate(['playlist', ])
     }
+  }
+
+  /****** filter functions ******/
+
+  allFilter(playlist: Playlist): boolean {
+    return true;
+  }
+
+  minesFilter(playlist: Playlist): boolean {
+    return playlist.myRole === 7;
+  }
+
+  sharedFilter(playlist: Playlist): boolean {
+    return playlist.myRole != 7;
   }
 
 }

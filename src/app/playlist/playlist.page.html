@@ -23,7 +23,16 @@
   </div>
 
   <div class="section">
-    <h3>{{'All playlists' | uppercase}}</h3>
+    <div class="filter-container">
+      <h3>{{'playlists >' | uppercase}}</h3>
+      <ion-select interface="popover" [formControl]="playlistFilterControl">
+        <ion-select-option value="all">{{'All' | uppercase}} </ion-select-option>
+        <ion-select-option value="mines">{{'Mines' | uppercase}}</ion-select-option>
+        <ion-select-option value="shared">{{'Shared with me' | uppercase}}</ion-select-option>
+      </ion-select>
+    </div>
+
+    <!-- slides -->
     <ion-slides *ngIf="(playlists$ | async) as playlists;" [options]="slideOpt">
       <ion-slide *ngFor="let playlist of playlists;">
           <app-playlist-card [playlist]="playlist"></app-playlist-card>
@@ -33,8 +42,8 @@
   </div>
 
   <div class="section">
-    <h3>{{'Today\'s tasks' | uppercase}}</h3>
-    <ion-list *ngIf="(todayItems | async) as items; else loading">
+      <h3>{{'Next tasks' | uppercase}}</h3>
+    <ion-list *ngIf="(topItems | async) as items; else loading">
       <ion-item-sliding *ngFor="let item of items; trackBy:trackFunction" >
         <app-todo-card [todo]="item"></app-todo-card>
         <ion-item-options side="end">
