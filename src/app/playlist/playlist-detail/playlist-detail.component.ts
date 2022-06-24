@@ -42,22 +42,36 @@ export class PlaylistDetailComponent implements OnInit {
    * trackBy function to track rendered elements, and prevent angular from rendering all elements on change.
    * @param index item index
    * @param item item
-   * @returns 
+   * @returns item id
    */
   trackFunction(index: number, item: Todo):string {
     return item.id
   }
 
+  /**
+   * delete a todo
+   * @param todo todo to delete
+   */
   delete(todo: Todo) {
-    this.playlistService.removeTodo(this.route.snapshot.params.id, todo);
+    this.playlistService.removeTodo(this.route.snapshot.params.id, todo.id);
   }
 
+  /**
+   * update a todo by calling a form modal to update todo
+   * @param todo to update
+   */
   async update(todo: Todo): Promise<void> {
+    // opening modal and waiting for new data
     const newTodo = await this.openModal(todo);
+    // if modal is successfully dismissed update item
     if (newTodo)
-      this.playlistService.updateTodo(this.route.snapshot.params.id, newTodo);
+      this.playlistService.updateTodo(this.route.snapshot.params.id, newTodo);    
   }
 
+  /**
+   * change completed state of a todo item
+   * @param todo concerned todo
+   */
   async changeCompleted(todo: Todo): Promise<void> {
     // immediately update todo
     todo.completed = !todo.completed;
@@ -65,12 +79,21 @@ export class PlaylistDetailComponent implements OnInit {
     this.playlistService.updateTodo(this.route.snapshot.params.id, {id: todo.id, completed: todo.completed});
   }
 
+  /**
+   * ask data from user to create a new todo item 
+   */
   async create() {
+    // opening modal and waiting for data
     const newTodo = await this.openModal();
+    // if modal is successfully dismissed then create item
     if (newTodo)
       this.playlistService.addTodo(this.route.snapshot.params.id, newTodo as Todo);
   }
 
+  /**
+   * edite meta data of a playlist
+   * @param playlist to edit
+   */
   async edit(playlist: Playlist) {
     const modal = await this.modalController.create({
       component: PlaylistFormComponent,
@@ -92,12 +115,24 @@ export class PlaylistDetailComponent implements OnInit {
     }
   }
 
-  sharePlaylist(playlist: Playlist, roles: {[uid: string]: number}): void {
+  /**
+   * open modal to share a playlist
+   * @param playlist to share
+   * @param roles new roles
+   */
+  sharePlaylist(playlist: Playlist): void {
+    // TODO
+    const roles = {};
     roles['I5Gmxv0vV9aVrOyIs5N0FpLETa43'] = 10;
     this.playlistService.updateRoles(playlist.id, roles);
   }
 
+  /**
+   * delete playlist by asking confirmation from user
+   * @param playlist to delete
+   */
   async deletePlaylist(playlist: Playlist) {
+    // creating confirmation modal
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Confirm!',
@@ -118,13 +153,18 @@ export class PlaylistDetailComponent implements OnInit {
     // waiting for confirmation
     await alert.present();
     const answer = (await alert.onDidDismiss())?.role === 'continue';
+    // delete playlist on confirmation
     if (answer) {
-      this.playlistService.removePlaylist(playlist);
+      this.playlistService.removePlaylist(playlist.id);
       this.router.navigate(['playlist']);
     }
-    
   }
 
+  /**
+   * method to get data (todo) from user by opening a modal
+   * @param todo object, if not null modal is pre-filled
+   * @returns todo raw data entered by user
+   */
   private async openModal(todo: Todo = null): Promise<Partial<Todo>> {    
     const modal = await this.modalController.create({
       component: TodoFormComponent,

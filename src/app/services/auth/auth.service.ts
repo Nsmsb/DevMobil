@@ -9,7 +9,7 @@ import { User } from '../../models/user';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class AuthService {
 
   private connectedUser: User;
   private userLoginChangesSubject: Subject<boolean>;
@@ -76,7 +76,8 @@ export class UserService {
     
     if (!connectedUserCredentails.user.emailVerified) {
       // TODO: use emailVerified as part of a guard
-      this.auth.signOut();
+      alert('please verify your email.')
+      await this.auth.signOut();
       return
     }
   }

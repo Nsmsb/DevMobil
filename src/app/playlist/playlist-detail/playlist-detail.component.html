@@ -34,7 +34,7 @@
           </ion-button>
         </ion-col>
         <ion-col size="4">
-          <ion-button (click)="sharePlaylist(playlist, {})" disabled="{{playlist.myRole < 7}}">
+          <ion-button (click)="sharePlaylist(playlist)" disabled="{{playlist.myRole < 7}}">
             <ion-icon slot="icon-only" name="share-social-outline"></ion-icon>
           </ion-button>
         </ion-col>
@@ -48,7 +48,7 @@
     <h3>{{'All tasks' | uppercase}}</h3>
     <ion-list *ngIf="playlist.todos$ | async as todos; else notYetCreated">
       <ion-item-sliding *ngFor="let todo of todos; trackBy:trackFunction" [disabled]="playlist.myRole === 1">
-        <app-todo-card [todo]="todo" [disabled]="playlist.myRole === 1"></app-todo-card>
+        <app-todo-card [todo]="todo"></app-todo-card>
         <ion-item-options side="end">
           <ion-item-option class="edite-option" (click)="update(todo)">
             <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
@@ -63,7 +63,7 @@
       <!-- empty todo list -->
       <div class="empty-list" *ngIf="todos?.length === 0">
         <img src="assets/boost.png" alt="empty todo list">
-        <h3>Let's go, add new tasks !</h3>
+        <h3>{{playlist.name}} is ready, add new tasks !</h3>
       </div>
     </ion-list>
     <ng-template #notYetCreated>
@@ -71,7 +71,7 @@
         <ion-item>
           <div class="empty-list">
             <img src="assets/boost.png" alt="empty todo list">
-            <h3>Let's go, add new tasks !</h3>
+            <h3>No task exist, add new tasks !</h3>
           </div>
           <ion-label>{{playlist.name}} Todo list is empty !</ion-label>
         </ion-item>
